@@ -6,13 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);//->require()->unique();
-            $table->foreignId('teacher_id')->constrained()->casCadeOnDelete();
-            $table->foreignId('catigory_id')->constrained()->casCadeOnDelete();
+            $table->foreignId('teacher_id')->constrained()->casCadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_sub_id')->constrained()->casCadeOnDelete()->cascadeOnUpdate();
             $table->longText('description');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
@@ -21,13 +24,6 @@ return new class extends Migration
             $table->string('url_image');//->unique()
             $table->boolean('status')->default(false);
             $table->timestamps();
-
-            // $table->unsignedBigInteger('teacher_id');
-            // $table->foreignId('id')->constrained('teachers')->onDelete('cascade');
-            // $table->foreignId('id')->constrained('catigories')->onDelete('cascade');
-            // $table->unsignedBigInteger('catigory_id');
-            // $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
-            // $table->foreign('catigory_id')->references('id')->on('catigories')->onDelete('cascade');
         });
     }
 
