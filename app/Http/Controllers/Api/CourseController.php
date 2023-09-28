@@ -28,7 +28,7 @@ class CourseController extends Controller
             }
             return $this->apiResponse($courses, 'Courses retrieved successfully', Response::HTTP_OK);
         } catch (\Exception $e) {
-            return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->apiResponse(null, '$e->getMessage()', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
     // {

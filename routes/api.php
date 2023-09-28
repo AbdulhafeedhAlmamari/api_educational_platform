@@ -9,19 +9,25 @@ use Illuminate\Support\Facades\Route;
 
 
 // Route::middleware(['auth:api'])->group(function (){
- 
+
 // });
 
 // Route::resource('courses', CourseController::class);
 
-
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::get('login', [PassportAuthController::class, 'login']);
-
 Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
 
+Route::post('register', [PassportAuthController::class, 'register']);
+Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
+Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
+    // authenticated staff routes here 
+    Route::get('courses', [CourseController::class, 'index']);
+});
 
-Route::get('courses', [CourseController::class, 'index']);
+// Route::post('login', [PassportAuthController::class, 'login']);
+
+
+
+// Route::get('courses', [CourseController::class, 'index'])->middleware('auth:api');
 Route::get('courses/{id}', [CourseController::class, 'show']);
 Route::post('store', [CourseController::class, 'store']);
 Route::post('update/{id}', [CourseController::class, 'update']);

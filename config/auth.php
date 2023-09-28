@@ -40,10 +40,34 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        // 'student' => [
+        //     'driver' => 'session',
+        //     'provider' => 'students',
+        // ],
+        // 'api' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'users',
+        // ],
+        'user_api' => [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+        'student_api' => [
+            'driver' => 'passport',
+            'provider' => 'students',
+        ],
+        // 'admin' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'admins',
+        // ],
+        // 'teacher' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'teachers',
+        // ],
     ],
 
     /*
@@ -68,6 +92,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -117,3 +145,60 @@ return [
     'password_timeout' => 10800,
 
 ];
+
+// 'guards' => [
+//     'student' => [
+//         'driver' => 'passport',
+//         'provider' => 'students',
+//     ],
+
+//     'admin' => [
+//         'driver' => 'passport',
+//         'provider' => 'admins',
+//     ],
+
+//     'teacher' => [
+//         'driver' => 'passport',
+//         'provider' => 'teachers',
+//     ],
+// ],
+
+// 'providers' => [
+//     'students' => [
+//         'driver' => 'eloquent',
+//         'model' => App\Models\Student::class,
+//     ],
+
+//     'admins' => [
+//         'driver' => 'eloquent',
+//         'model' => App\Models\Admin::class,
+//     ],
+
+//     'teachers' => [
+//         'driver' => 'eloquent',
+//         'model' => App\Models\Teacher::class,
+//     ],
+// ],
+
+// 'passwords' => [
+//     'students' => [
+//         'provider' => 'students',
+//         'table' => 'password_resets',
+//         'expire' => 60,
+//         'throttle' => 60,
+//     ],
+
+//     'admins' => [
+//         'provider' => 'admins',
+//         'table' => 'password_resets',
+//         'expire' => 60,
+//         'throttle' => 60,
+//     ],
+
+//     'teachers' => [
+//         'provider' => 'teachers',
+//         'table' => 'password_resets',
+//         'expire' => 60,
+//         'throttle' => 60,
+//     ],
+// ],

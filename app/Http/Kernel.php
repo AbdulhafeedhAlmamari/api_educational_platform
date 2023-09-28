@@ -41,7 +41,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -65,5 +65,20 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        // 'auth:student_api' => \App\Http\Middleware\Authenticate::class,
+        // 'auth:user_api' => \App\Http\Middleware\Authenticate::class,
+
+
+        'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+        'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
     ];
+    // protected $routeMiddleware = [
+    //     'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+    //     'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+    //     // Other middleware entries
+    //     'auth:student-api' => \App\Http\Middleware\Authenticate::class,
+    //     'auth:teacher-api' => \App\Http\Middleware\Authenticate::class,
+    //     'auth:admin-api' => \App\Http\Middleware\Authenticate::class,
+    // ];
 }
