@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\catigory;
-use Illuminate\Http\Request;
+use App\Models\Contact;
+use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
 
-class CatigoryController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class CatigoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
         //
     }
@@ -34,7 +35,7 @@ class CatigoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(catigory $catigory)
+    public function show(Contact $contact)
     {
         //
     }
@@ -42,7 +43,7 @@ class CatigoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(catigory $catigory)
+    public function edit(Contact $contact)
     {
         //
     }
@@ -50,7 +51,7 @@ class CatigoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, catigory $catigory)
+    public function update(UpdateContactRequest $request, Contact $contact)
     {
         //
     }
@@ -58,7 +59,7 @@ class CatigoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(catigory $catigory)
+    public function destroy(Contact $contact)
     {
         //
     }

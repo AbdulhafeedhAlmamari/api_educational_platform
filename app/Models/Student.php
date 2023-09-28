@@ -11,7 +11,13 @@ class Student extends Model
 {
     use HasFactory, Notifiable, HasApiTokens;
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'gender',
+        'phone_number',
+        'address',
+        'password',
+        'url_image',
+        'status',
     ];
-    // protected $guard = 'student';
 }
