@@ -5,14 +5,14 @@ use App\Http\Controllers\Api\PassportAuthController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\TeachersController;
-use App\Http\Controllers\Api\CategoryMainController;
-use App\Http\Controllers\Api\CategorySubController;
+use App\Http\Controllers\Api\SectionController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\LessoneController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\RecorderController;
-use App\Http\Controllers\Api\CommentsCourseController;
-use App\Http\Controllers\Api\CommentsSiteController;
+use App\Http\Controllers\Api\RatingsCourseController;
+use App\Http\Controllers\Api\RatingsSiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,15 +28,10 @@ Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
 Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
-    // authenticated staff routes here 
+    // authenticated staff routes here
     Route::get('courses', [CourseController::class, 'index']);
 });
 
-// Route::post('login', [PassportAuthController::class, 'login']);
-
-
-
-// Route::get('courses', [CourseController::class, 'index'])->middleware('auth:api');
 Route::get('courses/{id}', [CourseController::class, 'show']);
 Route::post('store', [CourseController::class, 'store']);
 Route::post('update/{id}', [CourseController::class, 'update']);
@@ -57,17 +52,17 @@ Route::post('teachers/store', [TeachersController::class , 'store']);
 Route::post('teachers/update/{id}', [TeachersController::class , 'update']);
 Route::post('teachers/destroy/{id}', [TeachersController::class , 'destroy']);
 
-Route::get('categoryMain', [CategoryMainController::class , 'index']);
-Route::get('categoryMain/{id}', [CategoryMainController::class , 'show']);
-Route::post('categoryMain/store', [CategoryMainController::class , 'store']);
-Route::post('categoryMain/update/{id}', [CategoryMainController::class , 'update']);
-Route::post('categoryMain/destroy/{id}', [CategoryMainController::class , 'destroy']);
+Route::get('section', [SectionController::class , 'index']);
+Route::get('section/{id}', [SectionController::class , 'show']);
+Route::post('section/store', [SectionController::class , 'store']);
+Route::post('section/update/{id}', [SectionController::class , 'update']);
+Route::post('section/destroy/{id}', [SectionController::class , 'destroy']);
 
-Route::get('categorySub', [CategorySubController::class , 'index']);
-Route::get('categorySub/{id}', [CategorySubController::class , 'show']);
-Route::post('categorySub/store', [CategorySubController::class , 'store']);
-Route::post('categorySub/update/{id}', [CategorySubController::class , 'update']);
-Route::post('categorySub/destroy/{id}', [CategorySubController::class , 'destroy']);
+Route::get('category', [CategoryController::class , 'index']);
+Route::get('category/{id}', [CategoryController::class , 'show']);
+Route::post('category/store', [CategoryController::class , 'store']);
+Route::post('category/update/{id}', [CategoryController::class , 'update']);
+Route::post('category/destroy/{id}', [CategoryController::class , 'destroy']);
 
 Route::get('admin', [AdminController::class , 'index']);
 Route::get('admin/{id}', [AdminController::class , 'show']);
@@ -93,16 +88,16 @@ Route::post('recorder/store', [RecorderController::class , 'store']);
 Route::post('recorder/update/{id}', [RecorderController::class , 'update']);
 Route::post('recorder/destroy/{id}', [RecorderController::class , 'destroy']);
 
-Route::get('commentsCourse', [CommentsCourseController::class , 'index']);
-Route::get('commentsCourse/{id}', [CommentsCourseController::class , 'show']);
-Route::post('commentsCourse/store', [CommentsCourseController::class , 'store']);
-Route::post('commentsCourse/update/{id}', [CommentsCourseController::class , 'update']);
-Route::post('commentsCourse/destroy/{id}', [CommentsCourseController::class , 'destroy']);
+Route::get('ratingsCourse', [RatingsCourseController::class , 'index']);
+Route::get('ratingsCourse/{id}', [RatingsCourseController::class , 'show']);
+Route::post('ratingsCourse/store', [RatingsCourseController::class , 'store']);
+Route::post('ratingsCourse/update/{id}', [RatingsCourseController::class , 'update']);
+Route::post('ratingsCourse/destroy/{id}', [RatingsCourseController::class , 'destroy']);
 
-Route::get('commentsSite', [CommentsSiteController::class , 'index']);
-Route::get('commentsSite/{id}', [CommentsSiteController::class , 'show']);
-Route::post('commentsSite/store', [CommentsSiteController::class , 'store']);
-Route::post('commentsSite/update/{id}', [CommentsSiteController::class , 'update']);
-Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class , 'destroy']);
+Route::get('ratingsSite', [RatingsSiteController::class , 'index']);
+Route::get('ratingsSite/{id}', [RatingsSiteController::class , 'show']);
+Route::post('ratingsSite/store', [RatingsSiteController::class , 'store']);
+Route::post('ratingsSite/update/{id}', [RatingsSiteController::class , 'update']);
+Route::post('ratingsSite/destroy/{id}', [RatingsSiteController::class , 'destroy']);
 
 

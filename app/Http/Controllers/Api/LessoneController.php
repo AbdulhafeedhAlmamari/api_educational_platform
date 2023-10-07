@@ -26,9 +26,9 @@ class LessoneController extends Controller
             $Lessone = LessoneResource::collection(Lessone::all());
 
             if ($Lessone->isEmpty()) {
-                return $this->apiResponse(null, 'No Lessone found', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد ايي دروس لعرضعها', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Lessone, 'Lessone retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Lessone, 'تم عرض الدروس بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -50,7 +50,7 @@ class LessoneController extends Controller
         try {
             $Lessone = new LessoneResource(Lessone::create($request->validated()));
 
-            return $this->apiResponse($Lessone, 'Lessone created successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Lessone, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -63,9 +63,9 @@ class LessoneController extends Controller
     {
         try {
             $Lessone = new LessoneResource(Lessone::findOrFail($id));
-            return $this->apiResponse($Lessone, 'Lessone retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Lessone, 'تم عرض الدرس بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Lessone not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الدرس غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -87,9 +87,9 @@ class LessoneController extends Controller
         try {
             $Lessone = new LessoneResource(Lessone::findOrFail($id));
             $Lessone->update($request->validated());
-            return $this->apiResponse($Lessone, 'Lessone updated successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Lessone, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Lessone not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الدرس غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -103,9 +103,9 @@ class LessoneController extends Controller
         try {
             $Lessone = new LessoneResource(Lessone::findOrFail($id));
             $Lessone->delete();
-            return $this->apiResponse($Lessone, 'Lessone deleted successfully', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($Lessone, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Lessone not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الدرس غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

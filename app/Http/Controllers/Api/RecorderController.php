@@ -26,9 +26,9 @@ class RecorderController extends Controller
             $Recorder = RecorderResource::collection(Recorder::all());
 
             if ($Recorder->isEmpty()) {
-                return $this->apiResponse(null, 'No Recorder found', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد ايي سجلات لعرضها', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Recorder, 'Recorder retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Recorder, 'تم عرض السجلات بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -50,7 +50,7 @@ class RecorderController extends Controller
         try {
             $Recorder = new RecorderResource(Recorder::create($request->validated()));
 
-            return $this->apiResponse($Recorder, 'Recorder created successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Recorder, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -63,9 +63,9 @@ class RecorderController extends Controller
     {
         try {
             $Recorder = new RecorderResource(Recorder::findOrFail($id));
-            return $this->apiResponse($Recorder, 'Recorder retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Recorder, 'تم عرض السجل بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Recorder not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا السجل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -87,9 +87,9 @@ class RecorderController extends Controller
         try {
             $Recorder = new RecorderResource(Recorder::findOrFail($id));
             $Recorder->update($request->validated());
-            return $this->apiResponse($Recorder, 'Recorder updated successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Recorder, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Recorder not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا السجل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -103,9 +103,9 @@ class RecorderController extends Controller
         try {
             $Recorder = new RecorderResource(Recorder::findOrFail($id));
             $Recorder->delete();
-            return $this->apiResponse($Recorder, 'Recorder deleted successfully', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($Recorder, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Recorder not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا السجل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

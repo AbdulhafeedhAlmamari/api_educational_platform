@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
-use App\Models\Student;
+use App\Models\Section;
 use Illuminate\Http\Request;
-use App\Http\Resources\StudentResource;
+use App\Http\Resources\SectionResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StudentRequest;
+use App\Http\Requests\SectionRequest;
 use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
 
-class StudentController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +23,12 @@ class StudentController extends Controller
     public function index()
     {
         try {
-            $student = StudentResource::collection(Student::all());
+            $Section = SectionResource::collection(Section::all());
 
-            if ($student->isEmpty()) {
-                return $this->apiResponse(null, 'لا يوجد ايي طلاب لعرضهم', Response::HTTP_NOT_FOUND);
+            if ($Section->isEmpty()) {
+                return $this->apiResponse(null, 'لا يوجد ايي اقسام حاليا', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($student, 'تم العرض بنجاح', Response::HTTP_OK);
+            return $this->apiResponse($Section, 'تم استرجاع الاقسام بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -45,12 +45,12 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StudentRequest $request)
+    public function store(SectionRequest $request)
     {
         try {
-            $student = new StudentResource(Student::create($request->validated()));
+            $Section = new SectionResource(Section::create($request->validated()));
 
-            return $this->apiResponse($student, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
+            return $this->apiResponse($Section, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -62,10 +62,10 @@ class StudentController extends Controller
     public function show($id)
     {
         try {
-            $student = new StudentResource(Student::findOrFail($id));
-            return $this->apiResponse($student, 'تم العرض بنجاح', Response::HTTP_OK);
+            $Section = new SectionResource(Section::findOrFail($id));
+            return $this->apiResponse($Section, 'تم استرجاع القسم بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا الطالب غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا القسم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -74,7 +74,7 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit($id)
     {
         //
     }
@@ -82,14 +82,14 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StudentRequest $request, $id)
+    public function update(SectionRequest $request, $id)
     {
         try {
-            $student = new StudentResource(Student::findOrFail($id));
-            $student->update($request->validated());
-            return $this->apiResponse($student, 'تم التعديل بنجاح', Response::HTTP_CREATED);
+            $Section = new SectionResource(Section::findOrFail($id));
+            $Section->update($request->validated());
+            return $this->apiResponse($Section, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا الطالب غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا القسم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -101,11 +101,11 @@ class StudentController extends Controller
     public function destroy($id)
     {
         try {
-            $student = new StudentResource(Student::findOrFail($id));
-            $student->delete();
-            return $this->apiResponse($student, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
+            $Section = new SectionResource(Section::findOrFail($id));
+            $Section->delete();
+            return $this->apiResponse($Section, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا الطالب غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا القسم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
