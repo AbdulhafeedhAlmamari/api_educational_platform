@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,7 +15,7 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'teacher' => new TeacherResource($this->teacher),
-            'category_sub' => new CategorySubResource($this->categorySub),
+            'category_sub' => new CategoryRequest($this->categorySub),
             'description' => $this->description,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,

@@ -11,7 +11,7 @@ class Course extends Model
     protected $fillable = [
         'name',
         'teacher_id',
-        'category_sub_id',
+        'category_id',
         'description',
         'start_date',
         'end_date',
@@ -25,9 +25,9 @@ class Course extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function categorySub()
+    public function category()
     {
-        return $this->belongsTo(CategorySub::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function recorders()  // enrollments
@@ -40,8 +40,8 @@ class Course extends Model
         return $this->hasMany(Lessone::class);
     }
 
-    public function commentsCourse()
+    public function ratingsCourse()
     {
-        return $this->hasMany(CommentsCourse::class);
+        return $this->hasMany(RatingsCourse::class);
     }
 }

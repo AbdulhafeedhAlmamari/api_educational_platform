@@ -26,9 +26,9 @@ class StudentController extends Controller
             $student = StudentResource::collection(Student::all());
 
             if ($student->isEmpty()) {
-                return $this->apiResponse(null, 'No Student found', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد ايي طلاب لعرضهم', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($student, 'Student retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($student, 'تم العرض بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -47,7 +47,7 @@ class StudentController extends Controller
         try {
             $student = new StudentResource(Student::create($request->validated()));
 
-            return $this->apiResponse($student, 'Student created successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($student, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -60,9 +60,9 @@ class StudentController extends Controller
     {
         try {
             $student = new StudentResource(Student::findOrFail($id));
-            return $this->apiResponse($student, 'Student retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($student, 'تم العرض بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Student not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الطالب غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -84,9 +84,9 @@ class StudentController extends Controller
         try {
             $student = new StudentResource(Student::findOrFail($id));
             $student->update($request->validated());
-            return $this->apiResponse($student, 'Student updated successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($student, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Student not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الطالب غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -100,9 +100,9 @@ class StudentController extends Controller
         try {
             $student = new StudentResource(Student::findOrFail($id));
             $student->delete();
-            return $this->apiResponse($student, 'Student deleted successfully', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($student, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Student not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الطالب غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

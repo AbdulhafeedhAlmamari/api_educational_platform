@@ -27,9 +27,9 @@ class CourseController extends Controller
             // );
 
             if ($courses->isEmpty()) {
-                return $this->apiResponse(null, 'No courses found', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد ايي كرسات', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($courses, 'Courses retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($courses, 'تم عرض الكرسات بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, '$e->getMessage()', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -58,7 +58,7 @@ class CourseController extends Controller
         try {
             $course = new CourseResource(Course::create($request->validated()));
 
-            return $this->apiResponse($course, 'Course created successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($course, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -95,9 +95,9 @@ class CourseController extends Controller
     {
         try {
             $course = new CourseResource(Course::findOrFail($id));
-            return $this->apiResponse($course, 'Course retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($course, 'تم عرض الكرس بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Course not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا الكرس غير موود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -116,9 +116,9 @@ class CourseController extends Controller
         try {
             $course = new CourseResource(Course::findOrFail($id));
             $course->update($request->validated());
-            return $this->apiResponse($course, 'Course updated successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($course, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Course not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا الكرس غير موود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -129,9 +129,9 @@ class CourseController extends Controller
         try {
             $course = new CourseResource(Course::findOrFail($id));
             $course->delete();
-            return $this->apiResponse($course, 'Course deleted successfully', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($course, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Course not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا الكرس غير موود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

@@ -26,9 +26,9 @@ class TeacherController extends Controller
             $Teacher = TeacherResource::collection(Teacher::all());
 
             if ($Teacher->isEmpty()) {
-                return $this->apiResponse(null, 'No Teacher found', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد ايي معلمين لعرضهم', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Teacher, 'Teacher retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Teacher, 'تم العرض ينجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -50,7 +50,7 @@ class TeacherController extends Controller
         try {
             $Teacher = new TeacherResource(Teacher::create($request->validated()));
 
-            return $this->apiResponse($Teacher, 'Teacher created successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Teacher, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -65,7 +65,7 @@ class TeacherController extends Controller
             $Teacher = new TeacherResource(Teacher::findOrFail($id));
             return $this->apiResponse($Teacher, 'Teacher retrieved successfully', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Teacher not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا المعلم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -87,9 +87,9 @@ class TeacherController extends Controller
         try {
             $Teacher = new TeacherResource(Teacher::findOrFail($id));
             $Teacher->update($request->validated());
-            return $this->apiResponse($Teacher, 'Teacher updated successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Teacher, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Teacher not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا المعلم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -103,9 +103,9 @@ class TeacherController extends Controller
         try {
             $Teacher = new TeacherResource(Teacher::findOrFail($id));
             $Teacher->delete();
-            return $this->apiResponse($Teacher, 'Teacher deleted successfully', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($Teacher, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Teacher not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا المعلم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);//->require()->unique();
             $table->foreignId('teacher_id')->constrained()->casCadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('category_sub_id')->constrained()->casCadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_id')->constrained()->casCadeOnDelete()->cascadeOnUpdate();
             $table->longText('description');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();

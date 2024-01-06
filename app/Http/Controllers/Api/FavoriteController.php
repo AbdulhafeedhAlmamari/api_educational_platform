@@ -26,9 +26,9 @@ class FavoriteController extends Controller
             $Favorite = FavoriteResource::collection(Favorite::all());
 
             if ($Favorite->isEmpty()) {
-                return $this->apiResponse(null, 'No Favorite found', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد ايي اكراس مفضلة لعرضها', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Favorite, 'Favorite retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Favorite, 'تم عرض الاكراس المفضلة بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -50,7 +50,7 @@ class FavoriteController extends Controller
         try {
             $Favorite = new FavoriteResource(Favorite::create($request->validated()));
 
-            return $this->apiResponse($Favorite, 'Favorite created successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Favorite, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -63,9 +63,9 @@ class FavoriteController extends Controller
     {
         try {
             $Favorite = new FavoriteResource(Favorite::findOrFail($id));
-            return $this->apiResponse($Favorite, 'Favorite retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Favorite, 'تم عرض الكرس المفضل بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Favorite not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الكرس المفضل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -87,9 +87,9 @@ class FavoriteController extends Controller
         try {
             $Favorite = new FavoriteResource(Favorite::findOrFail($id));
             $Favorite->update($request->validated());
-            return $this->apiResponse($Favorite, 'Favorite updated successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Favorite, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Favorite not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الكرس المفضل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -103,9 +103,9 @@ class FavoriteController extends Controller
         try {
             $Favorite = new FavoriteResource(Favorite::findOrFail($id));
             $Favorite->delete();
-            return $this->apiResponse($Favorite, 'Favorite deleted successfully', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($Favorite, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Favorite not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الكرس المفضل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

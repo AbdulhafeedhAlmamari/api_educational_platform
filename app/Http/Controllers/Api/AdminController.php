@@ -26,9 +26,9 @@ class AdminController extends Controller
             $Admin = AdminResource::collection(Admin::all());
 
             if ($Admin->isEmpty()) {
-                return $this->apiResponse(null, 'No Admin found', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد ايي مدراء حاليا', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Admin, 'Admin retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Admin, 'تم استرجاع المدراء بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -50,7 +50,7 @@ class AdminController extends Controller
         try {
             $Admin = new AdminResource(Admin::create($request->validated()));
 
-            return $this->apiResponse($Admin, 'Admin created successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Admin, 'تم انشاء المدير بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -63,9 +63,9 @@ class AdminController extends Controller
     {
         try {
             $Admin = new AdminResource(Admin::findOrFail($id));
-            return $this->apiResponse($Admin, 'Admin retrieved successfully', Response::HTTP_OK);
+            return $this->apiResponse($Admin, 'تم استرجاع المدير بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Admin not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا المدير غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -87,9 +87,9 @@ class AdminController extends Controller
         try {
             $Admin = new AdminResource(Admin::findOrFail($id));
             $Admin->update($request->validated());
-            return $this->apiResponse($Admin, 'Admin updated successfully', Response::HTTP_CREATED);
+            return $this->apiResponse($Admin, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Admin not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا المدير غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -103,9 +103,9 @@ class AdminController extends Controller
         try {
             $Admin = new AdminResource(Admin::findOrFail($id));
             $Admin->delete();
-            return $this->apiResponse($Admin, 'Admin deleted successfully', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($Admin, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'Admin not found', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا المدير غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
