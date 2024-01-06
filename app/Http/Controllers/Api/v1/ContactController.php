@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
+
+use App\Models\Contact;
 use App\Http\Controllers\Api\ApiResponseTrait;
-use App\Models\Section;
 use Illuminate\Http\Request;
-use App\Http\Resources\SectionResource;
+use App\Http\Resources\ContactResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SectionRequest;
+use App\Http\Requests\ContactRequest;
 use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
 
-class SectionController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +24,12 @@ class SectionController extends Controller
     public function index()
     {
         try {
-            $Section = SectionResource::collection(Section::all());
+            $Contact = ContactResource::collection(Contact::all());
 
-            if ($Section->isEmpty()) {
-                return $this->apiResponse(null, 'لا يوجد ايي اقسام حاليا', Response::HTTP_NOT_FOUND);
+            if ($Contact->isEmpty()) {
+                return $this->apiResponse(null, 'لا يوجد ايي رسايل حتى الان', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Section, 'تم استرجاع الاقسام بنجاح', Response::HTTP_OK);
+            return $this->apiResponse($Contact, 'تم عرض الرسايل بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -45,12 +46,12 @@ class SectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SectionRequest $request)
+    public function store(ContactRequest $request)
     {
         try {
-            $Section = new SectionResource(Section::create($request->validated()));
+            $Contact = new ContactResource(Contact::create($request->validated()));
 
-            return $this->apiResponse($Section, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
+            return $this->apiResponse($Contact, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -62,10 +63,10 @@ class SectionController extends Controller
     public function show($id)
     {
         try {
-            $Section = new SectionResource(Section::findOrFail($id));
-            return $this->apiResponse($Section, 'تم استرجاع القسم بنجاح', Response::HTTP_OK);
+            $Contact = new ContactResource(Contact::findOrFail($id));
+            return $this->apiResponse($Contact, 'تم عرض الرسالة بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هذا القسم غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذة الرسالة غير موجودة', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -82,14 +83,14 @@ class SectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SectionRequest $request, $id)
+    public function update(ContactRequest $request, $id)
     {
         try {
-            $Section = new SectionResource(Section::findOrFail($id));
-            $Section->update($request->validated());
-            return $this->apiResponse($Section, 'تم التعديل بنجاح', Response::HTTP_CREATED);
+            $Contact = new ContactResource(Contact::findOrFail($id));
+            $Contact->update($request->validated());
+            return $this->apiResponse($Contact, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هذا القسم غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذة الرسالة غير موجودة', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -101,11 +102,11 @@ class SectionController extends Controller
     public function destroy($id)
     {
         try {
-            $Section = new SectionResource(Section::findOrFail($id));
-            $Section->delete();
-            return $this->apiResponse($Section, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
+            $Contact = new ContactResource(Contact::findOrFail($id));
+            $Contact->delete();
+            return $this->apiResponse($Contact, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هذا القسم غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذة الرسالة غير موجودة', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

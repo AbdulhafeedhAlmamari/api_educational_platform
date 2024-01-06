@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
+use App\Models\Favorite;
 use App\Http\Controllers\Api\ApiResponseTrait;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\FavoriteResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\FavoriteRequest;
 use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
 
-class CategoryController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +23,12 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $Category = CategoryResource::collection(Category::all());
+            $Favorite = FavoriteResource::collection(Favorite::all());
 
-            if ($Category->isEmpty()) {
-                return $this->apiResponse(null, 'لا يوجد ايي فيئات حاليا', Response::HTTP_NOT_FOUND);
+            if ($Favorite->isEmpty()) {
+                return $this->apiResponse(null, 'لا يوجد ايي اكراس مفضلة لعرضها', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Category, 'تم عرض الفيئات بنجاح', Response::HTTP_OK);
+            return $this->apiResponse($Favorite, 'تم عرض الاكراس المفضلة بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -45,12 +45,12 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(FavoriteRequest $request)
     {
         try {
-            $Category = new CategoryResource(Category::create($request->validated()));
+            $Favorite = new FavoriteResource(Favorite::create($request->validated()));
 
-            return $this->apiResponse($Category, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
+            return $this->apiResponse($Favorite, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -62,10 +62,10 @@ class CategoryController extends Controller
     public function show($id)
     {
         try {
-            $Category = new CategoryResource(Category::findOrFail($id));
-            return $this->apiResponse($Category, 'تم عرض الفئة بنجاح', Response::HTTP_OK);
+            $Favorite = new FavoriteResource(Favorite::findOrFail($id));
+            return $this->apiResponse($Favorite, 'تم عرض الكرس المفضل بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هذة الفئة غير موجودة', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الكرس المفضل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -82,14 +82,14 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(FavoriteRequest $request, $id)
     {
         try {
-            $Category = new CategoryResource(Category::findOrFail($id));
-            $Category->update($request->validated());
-            return $this->apiResponse($Category, 'تم التعديل بنجاح', Response::HTTP_CREATED);
+            $Favorite = new FavoriteResource(Favorite::findOrFail($id));
+            $Favorite->update($request->validated());
+            return $this->apiResponse($Favorite, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هذة الفئة غير موجودة', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الكرس المفضل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -101,11 +101,11 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $Category = new CategoryResource(Category::findOrFail($id));
-            $Category->delete();
-            return $this->apiResponse($Category, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
+            $Favorite = new FavoriteResource(Favorite::findOrFail($id));
+            $Favorite->delete();
+            return $this->apiResponse($Favorite, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هذة الفئة غير موجودة', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا الكرس المفضل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

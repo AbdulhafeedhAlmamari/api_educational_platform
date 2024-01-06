@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Models\RatingsSite;
+use App\Models\RatingsCourse;
 use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Http\Request;
-use App\Http\Resources\RatingsSiteResource;
+use App\Http\Resources\RatingsCourseResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RatingsSiteRequest;
+use App\Http\Requests\RatingsCourseRequest;
 use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
 
-class RatingsSiteController extends Controller
+class RatingsCourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +23,12 @@ class RatingsSiteController extends Controller
     public function index()
     {
         try {
-            $RatingsSite = RatingsSiteResource::collection(RatingsSite::all());
+            $RatingsCourse = RatingsCourseResource::collection(RatingsCourse::all());
 
-            if ($RatingsSite->isEmpty()) {
-                return $this->apiResponse(null, 'لا يوجد ايي تقيمات عن الموقع', Response::HTTP_NOT_FOUND);
+            if ($RatingsCourse->isEmpty()) {
+                return $this->apiResponse(null, 'لا يوجد ايي تقيمات عن هاذا الكرس', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($RatingsSite, 'تم عرض التقيمات بنجاح', Response::HTTP_OK);
+            return $this->apiResponse($RatingsCourse, 'تم عرض التقيمات بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -45,12 +45,12 @@ class RatingsSiteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(RatingsSiteRequest $request)
+    public function store(RatingsCourseRequest $request)
     {
         try {
-            $RatingsSite = new RatingsSiteResource(RatingsSite::create($request->validated()));
+            $RatingsCourse = new RatingsCourseResource(RatingsCourse::create($request->validated()));
 
-            return $this->apiResponse($RatingsSite, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
+            return $this->apiResponse($RatingsCourse, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -62,10 +62,10 @@ class RatingsSiteController extends Controller
     public function show($id)
     {
         try {
-            $RatingsSite = new RatingsSiteResource(RatingsSite::findOrFail($id));
-            return $this->apiResponse($RatingsSite, 'تم عرض التقيم بنجاح', Response::HTTP_OK);
+            $RatingsCourse = new RatingsCourseResource(RatingsCourse::findOrFail($id));
+            return $this->apiResponse($RatingsCourse, 'تم عرض التقيم بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا التقيم غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا التقيم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -82,12 +82,12 @@ class RatingsSiteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(RatingsSiteRequest $request, $id)
+    public function update(RatingsCourseRequest $request, $id)
     {
         try {
-            $RatingsSite = new RatingsSiteResource(RatingsSite::findOrFail($id));
-            $RatingsSite->update($request->validated());
-            return $this->apiResponse($RatingsSite, 'تم التعديل بنجاح', Response::HTTP_CREATED);
+            $RatingsCourse = new RatingsCourseResource(RatingsCourse::findOrFail($id));
+            $RatingsCourse->update($request->validated());
+            return $this->apiResponse($RatingsCourse, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
             return $this->apiResponse(null, 'هاذا التقيم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
@@ -101,9 +101,9 @@ class RatingsSiteController extends Controller
     public function destroy($id)
     {
         try {
-            $RatingsSite = new RatingsSiteResource(RatingsSite::findOrFail($id));
-            $RatingsSite->delete();
-            return $this->apiResponse($RatingsSite, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
+            $RatingsCourse = new RatingsCourseResource(RatingsCourse::findOrFail($id));
+            $RatingsCourse->delete();
+            return $this->apiResponse($RatingsCourse, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
             return $this->apiResponse(null, 'هاذا التقيم غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
