@@ -12,4 +12,9 @@ class CategoryMain extends Model
         'name',
         'status',
     ];
+
+    public function categorySubs()
+    {
+        return $this->hasMany(CategorySub::class, 'category_main_id');
+    }
 }

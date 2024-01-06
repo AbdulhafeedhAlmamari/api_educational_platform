@@ -15,4 +15,14 @@ class CommentsCourse extends Model
         'status',
         'degree'
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

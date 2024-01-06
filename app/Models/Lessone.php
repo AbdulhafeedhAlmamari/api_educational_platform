@@ -13,4 +13,8 @@ class Lessone extends Model
         'extension',
         'description'
     ];
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

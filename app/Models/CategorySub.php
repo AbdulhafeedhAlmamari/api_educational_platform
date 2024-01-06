@@ -13,4 +13,14 @@ class CategorySub extends Model
         'category_main_id',
         'status'
     ];
+
+    public function categoryMain()
+    {
+        return $this->belongsTo(CategoryMain::class, 'category_main_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

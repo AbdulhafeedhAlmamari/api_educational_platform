@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
-use App\Models\teachers;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Http\Resources\TeacherResource;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
 
-class TeachersController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +23,7 @@ class TeachersController extends Controller
     public function index()
     {
         try {
-            $Teacher = TeacherResource::collection(teachers::all());
+            $Teacher = TeacherResource::collection(Teacher::all());
 
             if ($Teacher->isEmpty()) {
                 return $this->apiResponse(null, 'No Teacher found', Response::HTTP_NOT_FOUND);
@@ -48,7 +48,7 @@ class TeachersController extends Controller
     public function store(TeacherRequest $request)
     {
         try {
-            $Teacher = new TeacherResource(teachers::create($request->validated()));
+            $Teacher = new TeacherResource(Teacher::create($request->validated()));
 
             return $this->apiResponse($Teacher, 'Teacher created successfully', Response::HTTP_CREATED);
         } catch (\Exception $e) {
@@ -62,7 +62,7 @@ class TeachersController extends Controller
     public function show($id)
     {
         try {
-            $Teacher = new TeacherResource(teachers::findOrFail($id));
+            $Teacher = new TeacherResource(Teacher::findOrFail($id));
             return $this->apiResponse($Teacher, 'Teacher retrieved successfully', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
             return $this->apiResponse(null, 'Teacher not found', Response::HTTP_NOT_FOUND);
@@ -85,7 +85,7 @@ class TeachersController extends Controller
     public function update(TeacherRequest $request, $id)
     {
         try {
-            $Teacher = new TeacherResource(teachers::findOrFail($id));
+            $Teacher = new TeacherResource(Teacher::findOrFail($id));
             $Teacher->update($request->validated());
             return $this->apiResponse($Teacher, 'Teacher updated successfully', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
@@ -101,7 +101,7 @@ class TeachersController extends Controller
     public function destroy($id)
     {
         try {
-            $Teacher = new TeacherResource(teachers::findOrFail($id));
+            $Teacher = new TeacherResource(Teacher::findOrFail($id));
             $Teacher->delete();
             return $this->apiResponse($Teacher, 'Teacher deleted successfully', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {

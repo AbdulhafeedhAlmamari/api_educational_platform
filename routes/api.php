@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\RecorderController;
 use App\Http\Controllers\Api\CommentsCourseController;
 use App\Http\Controllers\Api\CommentsSiteController;
+use App\Http\Controllers\Api\TeacherController;
+use App\Http\Controllers\Api\v1\auth\StudentAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,12 +25,14 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resource('courses', CourseController::class);
 
-Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
+// Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
+
+Route::post('student/register', [StudentAuthController::class, 'register']);
 
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
 Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
-    // authenticated staff routes here 
+    // authenticated staff routes here
     Route::get('courses', [CourseController::class, 'index']);
 });
 
@@ -51,11 +55,11 @@ Route::post('students/store', [StudentController::class , 'store']);
 Route::post('students/update/{id}', [StudentController::class , 'update']);
 Route::post('students/destroy/{id}', [StudentController::class , 'destroy']);
 
-Route::get('teachers', [TeachersController::class , 'index']);
-Route::get('teachers/{id}', [TeachersController::class , 'show']);
-Route::post('teachers/store', [TeachersController::class , 'store']);
-Route::post('teachers/update/{id}', [TeachersController::class , 'update']);
-Route::post('teachers/destroy/{id}', [TeachersController::class , 'destroy']);
+Route::get('teachers', [TeacherController::class , 'index']);
+Route::get('teachers/{id}', [TeacherController::class , 'show']);
+Route::post('teachers/store', [TeacherController::class , 'store']);
+Route::post('teachers/update/{id}', [TeacherController::class , 'update']);
+Route::post('teachers/destroy/{id}', [TeacherController::class , 'destroy']);
 
 Route::get('categoryMain', [CategoryMainController::class , 'index']);
 Route::get('categoryMain/{id}', [CategoryMainController::class , 'show']);

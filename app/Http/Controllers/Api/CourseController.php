@@ -22,6 +22,9 @@ class CourseController extends Controller
     {
         try {
             $courses = CourseResource::collection(Course::all());
+            // $courses = CourseResource::collection(
+            //     Course::with('teacher', 'categorySub')->get()
+            // );
 
             if ($courses->isEmpty()) {
                 return $this->apiResponse(null, 'No courses found', Response::HTTP_NOT_FOUND);

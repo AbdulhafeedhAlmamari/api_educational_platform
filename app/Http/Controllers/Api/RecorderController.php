@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Recorder;
 use App\Http\Controllers\Api\ApiResponseTrait;
-use Illuminate\Http\Request;
 use App\Http\Resources\RecorderResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecorderRequest;
-use Dotenv\Validator;
+use App\Models\Course;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 
 
 class RecorderController extends Controller
@@ -48,6 +47,12 @@ class RecorderController extends Controller
     public function store(RecorderRequest $request)
     {
         try {
+
+            $course = Course::findOrFail($request->course_id);
+            $student =  Student::findOrFail($request->student_id);
+            if ($student->recorders()->where('course_id', $course->id)->exists()) {
+                return $this->apiResponse(true, 'student  already enrolled in this course', Response::HTTP_OK);
+            }
             $Recorder = new RecorderResource(Recorder::create($request->validated()));
 
             return $this->apiResponse($Recorder, 'Recorder created successfully', Response::HTTP_CREATED);

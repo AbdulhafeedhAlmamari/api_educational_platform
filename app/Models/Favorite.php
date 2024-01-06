@@ -12,4 +12,7 @@ class Favorite extends Model
         'student_id',
         'course_id'
     ];
+
+
+
 }
