@@ -1,22 +1,20 @@
 <?php
 
-use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\v1\CourseController;
 use App\Http\Controllers\Api\PassportAuthController;
 use App\Http\Controllers\LangController;
-use App\Http\Controllers\Api\StudentController;
-use App\Http\Controllers\Api\TeachersController;
-use App\Http\Controllers\Api\SectionController;
-use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\v1\StudentController;
+use App\Http\Controllers\Api\v1\SectionController;
+use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\Api\LessoneController;
-use App\Http\Controllers\Api\FavoriteController;
-use App\Http\Controllers\Api\RecorderController;
-use App\Http\Controllers\Api\CommentsCourseController;
-use App\Http\Controllers\Api\CommentsSiteController;
-use App\Http\Controllers\Api\TeacherController;
+use App\Http\Controllers\Api\v1\LessoneController;
+use App\Http\Controllers\Api\v1\FavoriteController;
+use App\Http\Controllers\Api\v1\RecorderController;
+
+use App\Http\Controllers\Api\v1\TeacherController;
 use App\Http\Controllers\Api\v1\auth\StudentAuthController;
-use App\Http\Controllers\Api\RatingsCourseController;
-use App\Http\Controllers\Api\RatingsSiteController;
+use App\Http\Controllers\Api\v1\RatingsCourseController;
+use App\Http\Controllers\Api\v1\RatingsSiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
