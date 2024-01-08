@@ -34,7 +34,10 @@ class Course extends Model
     {
         return $this->hasMany(Recorder::class);
     }
-
+    public function favorites()  // enrollments
+    {
+        return $this->hasMany(Recorder::class);
+    }
     public function lessones()
     {
         return $this->hasMany(Lessone::class);

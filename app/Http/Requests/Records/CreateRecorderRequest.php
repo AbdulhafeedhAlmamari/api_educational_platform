@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Records;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class RatingsSiteRequest extends FormRequest
+class CreateRecorderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,11 +29,8 @@ class RatingsSiteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'    => 'required|numeric',
-            'type_user'  => 'required|numeric',
-            'comment'    => 'required|string',
-            'status'     => 'boolean',
-            'degree'     => 'numeric|nullable'
+            'student_id' => 'required|exists:students,id',
+            'course_id'  => 'required|exists:courses,id'
         ];
     }
     protected function failedValidation(Validator $validator)

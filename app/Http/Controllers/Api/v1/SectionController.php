@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Models\Section;
-use Illuminate\Http\Request;
 use App\Http\Resources\SectionResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SectionRequest;
-use Dotenv\Validator;
+use App\Http\Requests\Courses\UpdateCourseRequest;
+use App\Http\Requests\Sections\CreateSectionRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 
 
 class SectionController extends Controller
@@ -28,7 +26,7 @@ class SectionController extends Controller
             if ($Section->isEmpty()) {
                 return $this->apiResponse(null, 'لا يوجد ايي اقسام حاليا', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Section, 'تم استرجاع الاقسام بنجاح', Response::HTTP_OK);
+            return $this->apiResponse($Section, 'تم جلب الاقسام بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -45,7 +43,7 @@ class SectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SectionRequest $request)
+    public function store(CreateSectionRequest $request)
     {
         try {
             $Section = new SectionResource(Section::create($request->validated()));
@@ -82,7 +80,7 @@ class SectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SectionRequest $request, $id)
+    public function update(UpdateCourseRequest $request, $id)
     {
         try {
             $Section = new SectionResource(Section::findOrFail($id));

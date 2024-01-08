@@ -4,15 +4,12 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Models\Lessone;
-use Illuminate\Http\Request;
 use App\Http\Resources\LessoneResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LessoneRequest;
-use Dotenv\Validator;
+use App\Http\Requests\Lessones\CreateLessoneRequest;
+use App\Http\Requests\Lessones\UpdateLessoneRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
-
 
 class LessoneController extends Controller
 {
@@ -45,7 +42,7 @@ class LessoneController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LessoneRequest $request)
+    public function store(CreateLessoneRequest $request)
     {
         try {
             $Lessone = new LessoneResource(Lessone::create($request->validated()));
@@ -82,7 +79,7 @@ class LessoneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(LessoneRequest $request, $id)
+    public function update(UpdateLessoneRequest $request, $id)
     {
         try {
             $Lessone = new LessoneResource(Lessone::findOrFail($id));

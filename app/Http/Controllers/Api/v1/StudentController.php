@@ -7,7 +7,8 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Resources\StudentResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StudentRequest;
+use App\Http\Requests\students\CreateStudentRequest;
+use App\Http\Requests\students\UpdateStudentRequest;
 use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +43,7 @@ class StudentController extends Controller
         //
     }
 
-    public function store(StudentRequest $request)
+    public function store(CreateStudentRequest $request)
     {
         try {
             $student = new StudentResource(Student::create($request->validated()));
@@ -79,11 +80,12 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StudentRequest $request, $id)
+    public function update(UpdateStudentRequest $request, $id)
     {
         try {
             $student = new StudentResource(Student::findOrFail($id));
             $student->update($request->validated());
+
             return $this->apiResponse($student, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
             return $this->apiResponse(null, 'هاذا الطالب غير موجود', Response::HTTP_NOT_FOUND);

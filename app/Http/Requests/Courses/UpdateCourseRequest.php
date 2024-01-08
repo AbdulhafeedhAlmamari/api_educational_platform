@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Courses;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Contracts\Validation\Validator;
@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-class CourseRequest extends FormRequest
+class UpdateCourseRequest extends FormRequest
 {
     use ApiResponseTrait;
     public function authorize()
@@ -21,13 +21,13 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50',
-            'teacher_id' => 'required|exists:teachers,id',
-            'category_sub_id' => 'required|exists:category_subs,id',
-            'description' => 'required|string',
+            'name' => 'string|max:50',
+            'teacher_id' => 'exists:teachers,id',
+            'category_sub_id' => 'exists:category_subs,id',
+            'description' => 'string',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
-            'price' => 'required|numeric',//|min:0|max:100',
+            'price' => 'numeric',//|min:0|max:100',
             'discount' => 'nullable|numeric',//|min:0|max:100',
             'url_image' => 'nullable',//|image|mimes:jpeg,png,jpg,gif,svg',
             'status' => 'boolean',

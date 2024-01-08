@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('end_date')->nullable();
             $table->double('price', 8, 2);
             $table->double('discount', 8, 2);
-            $table->string('url_image');//->unique()
+            $table->string('url_image'); //->unique()
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

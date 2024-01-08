@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class SectionRequest extends FormRequest
+class CreateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,6 +30,7 @@ class SectionRequest extends FormRequest
     {
         return [
             'name'         => 'required|string',
+            'section_id' => 'required|exists:sections,id',
             'status'       => 'boolean',
         ];
     }

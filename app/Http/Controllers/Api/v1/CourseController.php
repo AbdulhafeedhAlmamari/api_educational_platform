@@ -5,14 +5,12 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CourseRequest;
+use App\Http\Requests\Courses\CreateCourseRequest;
+use App\Http\Requests\Courses\UpdateCourseRequest;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
-use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 
 class CourseController extends Controller
 {
@@ -23,7 +21,7 @@ class CourseController extends Controller
         try {
             $courses = CourseResource::collection(Course::all());
             // $courses = CourseResource::collection(
-            //     Course::with('teacher', 'categorySub')->get()
+            //     Course::with('teacher', 'category')->get()
             // );
 
             if ($courses->isEmpty()) {
@@ -47,7 +45,7 @@ class CourseController extends Controller
     //     "status": 0
     //   }
 
-    public function store(CourseRequest $request)
+    public function store(CreateCourseRequest $request)
     {
         // if ($image = $request->file('image')) {
         //     $path = '/images/';
@@ -103,7 +101,7 @@ class CourseController extends Controller
         }
     }
 
-    public function update(CourseRequest $request, $id)
+    public function update(UpdateCourseRequest $request, $id)
     {
         // if ($image = $request->file('image')) {
         //     $path = '/images/';

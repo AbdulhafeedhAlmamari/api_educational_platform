@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Lessones;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class TeacherRequest extends FormRequest
+class UpdateLessoneRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,14 +29,9 @@ class TeacherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => 'required|string',
-            'email'        => 'required|email|',
-            'gender'       => 'required',
-            'phone_number' => 'nullable|numeric',
-            'address'      => 'nullable',
-            'password'     => 'required',
-            'url_image'    => 'nullable',
-            'status'       => 'boolean',
+            'course_id'  => 'exists:courses,id',
+            'extension'  => '|max:255',
+            'description'=> 'nullable|max:255'
         ];
     }
     protected function failedValidation(Validator $validator)
@@ -53,4 +47,3 @@ class TeacherRequest extends FormRequest
         parent::failedValidation($validator);
     }
 }
-

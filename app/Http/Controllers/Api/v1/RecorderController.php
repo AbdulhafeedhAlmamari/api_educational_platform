@@ -6,7 +6,8 @@ use App\Models\Recorder;
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Resources\RecorderResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RecorderRequest;
+use App\Http\Requests\Records\CreateRecorderRequest;
+use App\Http\Requests\Records\UpdateRecorderRequest;
 use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -25,9 +26,9 @@ class RecorderController extends Controller
             $Recorder = RecorderResource::collection(Recorder::all());
 
             if ($Recorder->isEmpty()) {
-                return $this->apiResponse(null, 'لا يوجد ايي سجلات لعرضها', Response::HTTP_NOT_FOUND);
+                return $this->apiResponse(null, 'لا يوجد تسجيلات لعرضها', Response::HTTP_NOT_FOUND);
             }
-            return $this->apiResponse($Recorder, 'تم عرض السجلات بنجاح', Response::HTTP_OK);
+            return $this->apiResponse($Recorder, 'تم عرض التسجيلات بنجاح', Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -44,7 +45,7 @@ class RecorderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(RecorderRequest $request)
+    public function store(CreateRecorderRequest $request)
     {
         try {
 
@@ -68,9 +69,9 @@ class RecorderController extends Controller
     {
         try {
             $Recorder = new RecorderResource(Recorder::findOrFail($id));
-            return $this->apiResponse($Recorder, 'تم عرض السجل بنجاح', Response::HTTP_OK);
+            return $this->apiResponse($Recorder, 'تم عرض التسجيل بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا السجل غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'لايوجد تسجيل في هذا الكورس', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -87,14 +88,14 @@ class RecorderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(RecorderRequest $request, $id)
+    public function update(UpdateRecorderRequest $request, $id)
     {
         try {
             $Recorder = new RecorderResource(Recorder::findOrFail($id));
             $Recorder->update($request->validated());
             return $this->apiResponse($Recorder, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا السجل غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هاذا التسجل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

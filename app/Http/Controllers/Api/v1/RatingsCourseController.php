@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Http\Resources\RatingsCourseResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RatingsCourseRequest;
+use App\Http\Requests\Ratings\RatingsCourseRequest;
 use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;

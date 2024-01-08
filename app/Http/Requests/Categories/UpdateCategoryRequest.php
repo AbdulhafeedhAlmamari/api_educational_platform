@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Api\ApiResponseTrait;
@@ -11,11 +11,12 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class RecorderRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
+    use ApiResponseTrait;
     public function authorize(): bool
     {
         return true;
@@ -26,12 +27,12 @@ class RecorderRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    use ApiResponseTrait;
     public function rules(): array
     {
         return [
-            'student_id' => 'required|exists:students,id',
-            'course_id'  => 'required|exists:courses,id'
+            'name'         => 'string',
+            'section_id' => 'exists:sections,id',
+            'status'       => 'boolean',
         ];
     }
     protected function failedValidation(Validator $validator)
@@ -47,3 +48,4 @@ class RecorderRequest extends FormRequest
         parent::failedValidation($validator);
     }
 }
+

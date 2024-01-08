@@ -35,9 +35,13 @@ class Student extends Model
     {
         return $this->hasMany(Recorder::class);
     }
-
-    public function commentsCourse()
+    public function favorites()  // enrollments
     {
-        return $this->hasMany(CommentsCourse::class);
+        return $this->hasMany(Recorder::class);
+    }
+
+    public function ratingsCourse()
+    {
+        return $this->hasMany(RatingsCourse::class);
     }
 }

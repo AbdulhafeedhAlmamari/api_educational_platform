@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Models\Teacher;
-use Illuminate\Http\Request;
 use App\Http\Resources\TeacherResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TeacherRequest;
-use Dotenv\Validator;
+use App\Http\Requests\Teachers\CreateTeacherRequest;
+use App\Http\Requests\Teachers\UpdateTeacherRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 
 
 class TeacherController extends Controller
@@ -45,7 +43,7 @@ class TeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TeacherRequest $request)
+    public function store(CreateTeacherRequest $request)
     {
         try {
             $Teacher = new TeacherResource(Teacher::create($request->validated()));
@@ -82,7 +80,7 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TeacherRequest $request, $id)
+    public function update(UpdateTeacherRequest $request, $id)
     {
         try {
             $Teacher = new TeacherResource(Teacher::findOrFail($id));

@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use Dotenv\Validator;
+use App\Http\Requests\Categories\CreateCategoryRequest;
+use App\Http\Requests\Categories\UpdateCategoryRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 
 
 class CategoryController extends Controller
@@ -45,7 +43,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(CreateCategoryRequest  $request)
     {
         try {
             $Category = new CategoryResource(Category::create($request->validated()));
@@ -82,7 +80,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(UpdateCategoryRequest $request, $id)
     {
         try {
             $Category = new CategoryResource(Category::findOrFail($id));

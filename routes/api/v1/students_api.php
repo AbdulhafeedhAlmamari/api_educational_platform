@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\StudentController;
+use App\Http\Controllers\Api\v1\StudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('students', [StudentController::class , 'index']);

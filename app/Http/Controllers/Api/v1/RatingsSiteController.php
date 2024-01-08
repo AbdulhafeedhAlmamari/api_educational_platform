@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Http\Resources\RatingsSiteResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RatingsSiteRequest;
+use App\Http\Requests\Ratings\RatingsSiteRequest;
 use Dotenv\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;

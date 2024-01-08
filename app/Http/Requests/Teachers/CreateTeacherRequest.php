@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Teachers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Api\ApiResponseTrait;
@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class LessoneRequest extends FormRequest
+class CreateTeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,9 +30,14 @@ class LessoneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course_id'  => 'required|exists:courses,id',
-            'extension'  => 'required',
-            'description'=> 'nullable'
+            'name'         => 'required|string',
+            'email'        => 'required|string|email|max:255|unique:teachers',
+            'gender'       => 'required',
+            'phone_number' => 'nullable|numeric',
+            'address'      => 'nullable',
+            'password'     => 'required',
+            'url_image'    => 'nullable',
+            'status'       => 'boolean',
         ];
     }
     protected function failedValidation(Validator $validator)
@@ -48,3 +53,4 @@ class LessoneRequest extends FormRequest
         parent::failedValidation($validator);
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Teachers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Api\ApiResponseTrait;
@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class CategoryRequest extends FormRequest
+class UpdateTeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,12 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => 'required|string',
-            'section_id' => 'required|exists:sections,id',
+            'name'         => 'string',
+            'email'        => 'email',
+            'gender'       => 'max:4',
+            'phone_number' => 'nullable|numeric',
+            'address'      => 'nullable',
+            'url_image'    => 'nullable',
             'status'       => 'boolean',
         ];
     }

@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Sections;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class StudentRequest extends FormRequest
+class UpdateSectionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,14 +29,7 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => 'required',
-            'email'        => 'required|string|email|max:255|unique:students',
-            'gender'       => 'required',
-            'phone_number' => 'nullable|numeric',
-            'address'      => 'nullable',
-            'password'     => 'min:6|required_with:confirm_password|same:confirm_password',
-            'confirm_password'   => 'min:6',
-            'url_image'    => 'nullable',
+            'name'         => 'string',
             'status'       => 'boolean',
         ];
     }
@@ -54,3 +46,4 @@ class StudentRequest extends FormRequest
         parent::failedValidation($validator);
     }
 }
+
