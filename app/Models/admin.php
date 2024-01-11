@@ -7,8 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class admin extends Authenticatable
-{
+class admin extends Authenticatable{
     use HasFactory, Notifiable, HasApiTokens;
     protected $fillable = [
         'name',

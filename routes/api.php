@@ -38,6 +38,16 @@
 
 // // Route::post('login', [PassportAuthController::class, 'login']);
 
+Route::resource('courses',CourseController::class);
+Route::resource('students',StudentController::class);
+Route::resource('teachers',TeacherController::class);
+Route::resource('sections',SectionController::class);
+Route::resource('categories',CategoryController::class);
+Route::resource('lessones',LessoneController::class);
+Route::resource('favorites',FavoriteController::class);
+Route::resource('records',RecorderController::class);
+Route::resource('ratingsCourse',RatingsCourseController::class);
+Route::resource('ratingsSite',RatingsSiteController::class);
 
 
 // // Route::get('courses', [CourseController::class, 'index'])->middleware('auth:api');

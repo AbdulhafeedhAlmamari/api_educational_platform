@@ -15,7 +15,7 @@ class LessoneResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'course_id'   => $this->course_id,
+            'course'   =>   $this->course->name,  //new CourseResource($this->course) ,
             'extension'   => $this->extension,
             'description' => $this->description
         ];

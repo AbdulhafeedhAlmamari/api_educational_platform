@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\v1\auth;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sections\CreateSectionRequest;
 use App\Http\Requests\StudentRequest;
+use App\Http\Requests\Students\CreateStudentRequest;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -18,7 +20,7 @@ use Laravel\Passport\Passport;
 class StudentAuthController extends Controller
 {
     use ApiResponseTrait;
-    public function register(StudentRequest $request)
+    public function register(CreateStudentRequest $request)
     {
 
         try {

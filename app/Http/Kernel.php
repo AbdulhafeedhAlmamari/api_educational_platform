@@ -44,6 +44,12 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'students' => [
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api/v1/students_api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
     ];
 
     /**

@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-
 class Teacher extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
+
+
+    use HasFactory;
     protected $fillable = [
         'name',
         'email',
@@ -32,4 +34,9 @@ class Teacher extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

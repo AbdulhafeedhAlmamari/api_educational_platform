@@ -31,4 +31,18 @@ class Student extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function recorders()  // enrollments
+    {
+        return $this->hasMany(Recorder::class);
+    }
+    public function favorites()  // enrollments
+    {
+        return $this->hasMany(Recorder::class);
+    }
+
+    public function ratingsCourse()
+    {
+        return $this->hasMany(RatingsCourse::class);
+    }
 }

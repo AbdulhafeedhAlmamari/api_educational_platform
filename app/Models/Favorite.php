@@ -12,4 +12,15 @@ class Favorite extends Model
         'student_id',
         'course_id'
     ];
+
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

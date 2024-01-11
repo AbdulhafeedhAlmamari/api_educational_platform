@@ -15,8 +15,8 @@ class RecorderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'student_id' => $this->student_id,
-            'course_id'  => $this->course_id
+            'studentName' =>  $this->student->name, // new  StudentResource($this->student),
+            'courseName'  =>  $this->course->name //new  CourseResource($this->course),
         ];
     }
 }
