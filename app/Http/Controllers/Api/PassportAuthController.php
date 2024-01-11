@@ -36,6 +36,7 @@ class PassportAuthController extends Controller
         ]);
 
         $token = $user->createToken('MyApp', ['user_api'])->accessToken;
+        $user->sendEmailVerificationNotification();
 
         return response()->json(['token' => $token], 201);
     }

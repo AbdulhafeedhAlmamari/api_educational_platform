@@ -34,6 +34,11 @@ return [
     */
 
     'mailers' => [
+        'mailtrap'=>[
+            'transport' => 'mailtrap',
+            // 'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
+            // 'port' => env('MAIL_PORT', 2525),
+        ],
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),

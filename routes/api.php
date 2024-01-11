@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\v1\TeacherController;
 use App\Http\Controllers\Api\v1\auth\StudentAuthController;
 use App\Http\Controllers\Api\v1\RatingsCourseController;
 use App\Http\Controllers\Api\v1\RatingsSiteController;
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,4 +58,4 @@ Route::post('admin/update/{id}', [AdminController::class , 'update']);
 Route::post('admin/destroy/{id}', [AdminController::class , 'destroy']);
 
 
-
+// s6PrdGd7GRHCHAetcZSitqOpkcWia5uOe5RTChLN
