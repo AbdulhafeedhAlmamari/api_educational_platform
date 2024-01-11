@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\PassportAuthController;
-use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\TeachersController;
 use App\Http\Controllers\Api\CategoryMainController;
 use App\Http\Controllers\Api\CategorySubController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\Api\RecorderController;
 use App\Http\Controllers\Api\CommentsCourseController;
 use App\Http\Controllers\Api\CommentsSiteController;
 use App\Http\Controllers\Api\v1\auth\StudentAuthController;
+use App\Http\Controllers\Api\v1\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;

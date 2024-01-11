@@ -1,21 +1,20 @@
 <?php
 
-// use App\Http\Controllers\Api\CourseController;
-// use App\Http\Controllers\Api\PassportAuthController;
-// use App\Http\Controllers\LangController;
-// use App\Http\Controllers\Api\StudentController;
-// use App\Http\Controllers\Api\TeachersController;
-// use App\Http\Controllers\Api\CategoryMainController;
-// use App\Http\Controllers\Api\CategorySubController;
-// use App\Http\Controllers\Api\AdminController;
-// use App\Http\Controllers\Api\LessoneController;
-// use App\Http\Controllers\Api\FavoriteController;
-// use App\Http\Controllers\Api\RecorderController;
-// use App\Http\Controllers\Api\CommentsCourseController;
-// use App\Http\Controllers\Api\CommentsSiteController;
-// use App\Http\Controllers\Api\v1\auth\StudentAuthController;
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\PassportAuthController;
+use App\Http\Controllers\LangController;
+use App\Http\Controllers\Api\StudentController;
+use App\Http\Controllers\Api\TeachersController;
+use App\Http\Controllers\Api\CategoryMainController;
+use App\Http\Controllers\Api\CategorySubController;
+use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\Api\RecorderController;
+use App\Http\Controllers\Api\CommentsCourseController;
+use App\Http\Controllers\Api\CommentsSiteController;
+use App\Http\Controllers\Api\v1\auth\StudentAuthController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 
 // // Route::middleware(['auth:api'])->group(function (){
@@ -38,16 +37,16 @@
 
 // // Route::post('login', [PassportAuthController::class, 'login']);
 
-Route::resource('courses',CourseController::class);
-Route::resource('students',StudentController::class);
-Route::resource('teachers',TeacherController::class);
-Route::resource('sections',SectionController::class);
-Route::resource('categories',CategoryController::class);
-Route::resource('lessones',LessoneController::class);
-Route::resource('favorites',FavoriteController::class);
-Route::resource('records',RecorderController::class);
-Route::resource('ratingsCourse',RatingsCourseController::class);
-Route::resource('ratingsSite',RatingsSiteController::class);
+// Route::resource('courses',CourseController::class);
+// Route::resource('students',StudentController::class);
+// Route::resource('teachers',TeacherController::class);
+// Route::resource('sections',SectionController::class);
+// Route::resource('categories',CategoryController::class);
+// Route::resource('lessones',LessoneController::class);
+// Route::resource('favorites',FavoriteController::class);
+// Route::resource('records',RecorderController::class);
+// Route::resource('ratingsCourse',RatingsCourseController::class);
+// Route::resource('ratingsSite',RatingsSiteController::class);
 
 
 // // Route::get('courses', [CourseController::class, 'index'])->middleware('auth:api');
@@ -117,4 +116,4 @@ Route::resource('ratingsSite',RatingsSiteController::class);
 // Route::get('commentsSite/{id}', [CommentsSiteController::class, 'show']);
 // Route::post('commentsSite/store', [CommentsSiteController::class, 'store']);
 // Route::post('commentsSite/update/{id}', [CommentsSiteController::class, 'update']);
-// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']);
+// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']); -->
