@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 // use Laravel\Passport\HasApiTokens;
 use Laravel\Passport\Passport;
 
-class PassportAuthController extends Controller
+class   PassportAuthController extends Controller
 {
     use ApiResponseTrait;
     public function register(Request $request)

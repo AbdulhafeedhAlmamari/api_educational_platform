@@ -30,12 +30,13 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => 'required|string',
-            'email'        => 'required|email|',
+            'name'         => 'required',
+            'email'        => 'required|string|email|max:255|unique:students',
             'gender'       => 'required',
             'phone_number' => 'nullable|numeric',
             'address'      => 'nullable',
-            'password'     => 'required',
+            'password'     => 'min:6|required_with:confirm_password|same:confirm_password',
+            'confirm_password'   => 'min:6',
             'url_image'    => 'nullable',
             'status'       => 'boolean',
         ];

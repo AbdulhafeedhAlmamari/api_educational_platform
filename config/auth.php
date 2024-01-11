@@ -44,6 +44,41 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // for student
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
+
+        'student_api' => [
+            'driver' => 'passport',
+            'provider' => 'students',
+        ],
+
+        // for teacher
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+        ],
+
+        'teacher_api' => [
+            'driver' => 'passport',
+            'provider' => 'teachers',
+        ],
+
+        // for admin
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'admin_api' => [
+            'driver' => 'passport',
+            'provider' => 'admins',
+        ],
+
+
         // 'student' => [
         //     'driver' => 'session',
         //     'provider' => 'students',
@@ -52,21 +87,13 @@ return [
         //     'driver' => 'passport',
         //     'provider' => 'users',
         // ],
-        'user_api' => [
-            'driver' => 'passport',
-            'provider' => 'users',
-        ],
-        'student_api' => [
-            'driver' => 'passport',
-            'provider' => 'students',
-        ],
-        // 'admin' => [
+        // 'user_api' => [
         //     'driver' => 'passport',
-        //     'provider' => 'admins',
+        //     'provider' => 'users',
         // ],
-        // 'teacher' => [
+        // 'student_api' => [
         //     'driver' => 'passport',
-        //     'provider' => 'teachers',
+        //     'provider' => 'students',
         // ],
     ],
 
@@ -92,10 +119,27 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+
+        // for student
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
-        ]
+        ],
+
+        // for teacher
+        'teachers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Teacher::class,
+        ],
+
+        // for admin
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+
 
         // 'users' => [
         //     'driver' => 'database',
@@ -126,6 +170,30 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        // for student
+        'students' => [
+            'provider' => 'students',
+            'table' => 'student_password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        // for teacher
+        'teachers' => [
+            'provider' => 'teachers',
+            'table' => 'teacher_password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        // for admin
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'admin_password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,20 +17,17 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models' => 'App\Policies\ModelPolicy',
     ];
 
-    public function boot(): void
+    public function boot()
     {
         $this->registerPolicies();
 
         // Passport::ignoreRoutes();
-        // Passport::tokensCan([
-        //     'student' => 'Access student endpoints',
-        //     'admin' => 'Access admin endpoints',
-        //     'teacher' => 'Access teacher endpoints',
-        // ]);
-        // Passport::ignoreRoutes();
+        // Passport::routes();
+
         Passport::tokensCan([
-            'user_api' => 'User Type',
-            'student_api' => 'Access student endpoints',
+            'student' => 'Access student endpoints',
+            'admin' => 'Access admin endpoints',
+            'teacher' => 'Access teacher endpoints',
         ]);
     }
 }
