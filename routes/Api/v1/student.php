@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function 
     Route::get('student/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::resource('student', StudentController::class);
     Route::get('student/logout', [StudentAuthController::class, 'logout']);
-    Route::post('student/forgot-password', [NewPasswordController::class, 'forgotPassword'])->name('password.email');;
+    Route::post('student/forgot-password', [NewPasswordController::class, 'sendResetLinkEmail'])->name('password.email');;
     Route::post('student/reset-password/{token}', [NewPasswordController::class, 'reset']);
 });
 
