@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api\v1\auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
@@ -10,29 +10,10 @@ use Illuminate\Http\Request;
 class VerificationController extends Controller
 {
 
-    // public function __construct() {
-
-    //     // response()->json(['message' => 'verified']);
-    //     $this->middleware('auth:sanctum');
-    // }
-
-    /**
-     * Show the email verification notice.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
+    public function __construct()
     {
-        // $user=User::findOrFail($id);
-        if ($request->user() == null) {
-            return $request->user()->hasVerifiedEmail()
-            ? response()->json(['message' => 'Email already verified'])
-            : response()->json(['message' => 'Email not verified']);
-
-        }
-return   response()->json(['message' => 'enter user id']);
-
+        $this->middleware('signed')->only('verify');
+        $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
     /**
@@ -43,17 +24,19 @@ return   response()->json(['message' => 'enter user id']);
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function verify(EmailVerificationRequest $request)
+
+    public function verify(EmailVerificationRequest $request) //: RedirectResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
+            // return redirect(env('/') . '/email/verify/already-success');
             return response()->json(['message' => 'Email already verified']);
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
-
-        return response()->json(['message' => 'Email verified']);
+        // return redirect(env('https') . '/email/verify/success');
+        return  response()->json(['message' => 'Email verified']);
     }
 
     /**
@@ -67,11 +50,16 @@ return   response()->json(['message' => 'enter user id']);
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Email already verified']);
+
+            return response(['message' => 'Already verified']);
         }
 
         $request->user()->sendEmailVerificationNotification();
 
-        return response()->json(['message' => 'Verification email resent']);
+        if ($request->wantsJson()) {
+            return response(['message' => 'Email Sent']);
+        }
+
+        return back()->with('resent', true);
     }
 }

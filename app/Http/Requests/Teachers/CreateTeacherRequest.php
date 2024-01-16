@@ -35,7 +35,8 @@ class CreateTeacherRequest extends FormRequest
             'gender'       => 'required',
             'phone_number' => 'nullable|numeric',
             'address'      => 'nullable',
-            'password'     => 'required',
+            'password'     => 'min:6|required_with:confirm_password|same:confirm_password',
+            'confirm_password'   => 'min:6',
             'url_image'    => 'nullable',
             'status'       => 'boolean',
         ];

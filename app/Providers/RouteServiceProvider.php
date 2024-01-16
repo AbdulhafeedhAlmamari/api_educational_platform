@@ -27,15 +27,25 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
-
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
 
-            Route::middleware('students')
-                ->prefix('students')
-                ->group(base_path('routes/api/v1/students_api.php'));
+            // for student
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/Api/v1/student.php'));
+
+            // for teacher
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/Api/v1/teacher.php'));
+
+            // for admin
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/Api/v1/admin.php'));
 
             // Route::prefix('api')
             // ->middleware('api')
@@ -44,6 +54,18 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/api.php'));
         });
     }
+
+    // protected function configureRateLimiting()
+    // {
+    //     RateLimiter::for('api', function (Request $request) {
+    //         return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+    //     });
+    // }
 }

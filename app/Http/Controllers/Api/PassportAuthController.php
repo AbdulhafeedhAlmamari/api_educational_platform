@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 // use Laravel\Passport\HasApiTokens;
 use Laravel\Passport\Passport;
 
-class PassportAuthController extends Controller
+class   PassportAuthController extends Controller
 {
     use ApiResponseTrait;
     public function register(Request $request)
@@ -35,7 +35,7 @@ class PassportAuthController extends Controller
             'password' => $request->input('password'),
         ]);
 
-        $token = $user->createToken('MyApp', ['user_api'])->accessToken;
+        $token =$user->createToken('MyApp', ['user'])->accessToken;
         $user->sendEmailVerificationNotification();
 
         return response()->json(['token' => $token], 201);

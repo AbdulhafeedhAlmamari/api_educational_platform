@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Teacher extends Model
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+class Teacher extends Authenticatable implements MustVerifyEmail
 {
+    use HasFactory, Notifiable, HasApiTokens;
+
+
     use HasFactory;
     protected $fillable = [
         'name',
@@ -17,6 +23,16 @@ class Teacher extends Model
         'password',
         'url_image',
         'status',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 
     public function courses()

@@ -1,49 +1,60 @@
 <?php
 
-use App\Http\Controllers\Api\CourseController;
-use App\Http\Controllers\Api\PassportAuthController;
-use App\Http\Controllers\Api\v1\auth\VerificationController;
-use App\Http\Controllers\Api\v1\TeacherController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\v1\auth\NewPasswordController;
+use App\Http\Controllers\Api\v1\auth\StudentAuthController;
+use App\Http\Controllers\Api\v1\StudentController;
+use App\Http\Controllers\Api\v1\Auth\VerificationController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('student/register', [StudentAuthController::class, 'register']); //->name('student.register');
 
-// // Route::middleware(['auth:api'])->group(function (){
+Route::post('student/login', [StudentAuthController::class, 'login']);
 
-// // });
+Route::get('s/veryfidd', function () {
+    return response()->json([
+        'message' => 'welcome',
+    ]);
+})->middleware('verified');
 
-// // Route::resource('courses', CourseController::class);
 
-// // Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
+Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function () {
+    Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::get('student/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+    Route::resource('student', StudentController::class);
+    Route::get('student/logout', [StudentAuthController::class, 'logout']);
+    Route::post('student/forgot-password', [NewPasswordController::class, 'forgotPassword'])->name('password.email');;
+    Route::post('student/reset-password/{token}', [NewPasswordController::class, 'reset']);
+});
+
+
+
+// Auth::routes([
+//     'verify' => true,
+// ]);
+
+
+// Route::middleware(['auth:api'])->group(function (){
+
+// });
+
+// Route::resource('courses', CourseController::class);
+
+// Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
 
 // Route::post('student/register', [StudentAuthController::class, 'register']);
 // Route::post('student/login', [StudentAuthController::class, 'login']); //->name('userLogin');
 
-// Route::post('register', [PassportAuthController::class, 'register']);
 // Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
-Route::group(['prefix' => 'user', 'middleware' => ['auth:user', 'scopes:user']], function () {
-
-
-
-    // authenticated staff routes here
+// Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
+//     // authenticated staff routes here
     // Route::get('courses', [CourseController::class, 'index']);
-});
+// });
 
-// // Route::post('login', [PassportAuthController::class, 'login']);
-
-// Route::resource('courses',CourseController::class);
-// Route::resource('students',StudentController::class);
-// Route::resource('teachers',TeacherController::class);
-// Route::resource('sections',SectionController::class);
-// Route::resource('categories',CategoryController::class);
-// Route::resource('lessones',LessoneController::class);
-// Route::resource('favorites',FavoriteController::class);
-// Route::resource('records',RecorderController::class);
-// Route::resource('ratingsCourse',RatingsCourseController::class);
-// Route::resource('ratingsSite',RatingsSiteController::class);
+// Route::post('login', [PassportAuthController::class, 'login']);
 
 
-// // Route::get('courses', [CourseController::class, 'index'])->middleware('auth:api');
+
+// Route::get('courses', [CourseController::class, 'index'])->middleware('auth:api');
 // Route::get('courses/{id}', [CourseController::class, 'show']);
 // Route::post('store', [CourseController::class, 'store']);
 // Route::post('update/{id}', [CourseController::class, 'update']);
@@ -110,4 +121,4 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user', 'scopes:user']],
 // Route::get('commentsSite/{id}', [CommentsSiteController::class, 'show']);
 // Route::post('commentsSite/store', [CommentsSiteController::class, 'store']);
 // Route::post('commentsSite/update/{id}', [CommentsSiteController::class, 'update']);
-// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']); -->
+// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']);
