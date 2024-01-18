@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\PassportAuthController;
-use App\Http\Controllers\Api\v1\auth\VerificationController;
+use App\Http\Controllers\Api\v1\Auth\VerificationController;
 use App\Http\Controllers\Api\v1\TeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

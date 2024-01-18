@@ -1,19 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1\auth;
+namespace App\Http\Controllers\Api\v1\Auth\Admin;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Traits\ResetPasswordTrait;
-use App\Models\Student;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Response;
+use App\Models\Admin;
 
-class NewPasswordController extends Controller
+class ResetPasswordController extends Controller
 {
 
     use ResetPasswordTrait;
@@ -21,7 +17,7 @@ class NewPasswordController extends Controller
     public function sendResetLinkEmail(Request $request)
     {
 
-        return  $this->forgotPassword($request, 'student_password_reset_tokens', Student::class);
+        return  $this->forgotPassword($request, 'admin_password_reset_tokens', Admin::class);
         // $email = $request->input('email');
         // $user = null;
 
@@ -59,8 +55,8 @@ class NewPasswordController extends Controller
         return   $this->resetPassword(
             $request,
             $token,
-            'student_password_reset_tokens',
-            Student::class
+            'admin_password_reset_tokens',
+            Admin::class
         );
         // $token =   $request->input('token');
         // if (!$resetPassword = DB::table('student_password_reset_tokens')->where('token', $token)->first()) {

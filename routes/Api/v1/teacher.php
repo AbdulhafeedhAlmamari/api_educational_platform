@@ -1,20 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\CourseController;
+
 use App\Http\Controllers\Api\PassportAuthController;
-use App\Http\Controllers\LangController;
-use App\Http\Controllers\Api\StudentController;
-use App\Http\Controllers\Api\TeachersController;
-use App\Http\Controllers\Api\CategoryMainController;
-use App\Http\Controllers\Api\CategorySubController;
-use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\Api\LessoneController;
-use App\Http\Controllers\Api\FavoriteController;
-use App\Http\Controllers\Api\RecorderController;
-use App\Http\Controllers\Api\CommentsCourseController;
-use App\Http\Controllers\Api\CommentsSiteController;
-use App\Http\Controllers\Api\v1\auth\StudentAuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\v1\Auth\Student\StudentAuthController;
 use Illuminate\Support\Facades\Route;
 
 

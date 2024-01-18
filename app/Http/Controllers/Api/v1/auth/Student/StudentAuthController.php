@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1\auth;
+namespace App\Http\Controllers\Api\v1\Auth\Student;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Controllers\Controller;
