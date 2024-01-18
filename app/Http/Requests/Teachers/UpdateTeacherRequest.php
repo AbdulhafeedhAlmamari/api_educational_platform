@@ -31,7 +31,7 @@ class UpdateTeacherRequest extends FormRequest
     {
         return [
             'name'         => 'string| max:255',
-            'email'        => 'email| max:255|unique:students,email,' . $this->teacher->id,
+            'email'        => 'email| max:255|unique:teachers,email,' . $this->teacher->id,
             'gender'       => 'max:4',
             'phone_number' => 'nullable|numeric| ',
             'address'      => 'nullable| max:255',

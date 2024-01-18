@@ -54,4 +54,3 @@ class CreateTeacherRequest extends FormRequest
         parent::failedValidation($validator);
     }
 }
-
