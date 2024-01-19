@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 // use Laravel\Passport\HasApiTokens;
 use Laravel\Passport\Passport;
+use Laravel\Socialite\Facades\Socialite;
 
 class   PassportAuthController extends Controller
 {
@@ -100,6 +101,8 @@ class   PassportAuthController extends Controller
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
     }
+
+
 
     public function logout()
     {

@@ -20,6 +20,9 @@ Route::post('student/register', [StudentAuthController::class, 'register']); //-
 
 Route::post('student/login', [StudentAuthController::class, 'login']);
 
+Route::get('auth/google/redirect', [StudentAuthController::class, 'redirect']);
+Route::get('auth/google/callback', [StudentAuthController::class, 'callback']);
+
 Route::get('s/veryfidd', function () {
     return response()->json([
         'message' => 'welcome',

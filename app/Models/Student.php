@@ -20,6 +20,8 @@ class Student extends Authenticatable implements MustVerifyEmail
         'password',
         'url_image',
         'status',
+        'social_id',
+        'social_type',
     ];
 
     protected $hidden = [
@@ -32,11 +34,11 @@ class Student extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function recorders()  // enrollments
+    public function recorders()  
     {
         return $this->hasMany(Recorder::class);
     }
-    public function favorites()  // enrollments
+    public function favorites()  
     {
         return $this->hasMany(Recorder::class);
     }

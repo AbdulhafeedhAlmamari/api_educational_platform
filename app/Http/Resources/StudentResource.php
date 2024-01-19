@@ -20,7 +20,7 @@ class StudentResource extends JsonResource
         'gender' =>$this->gender,
         'phone_number' =>$this->phone_number,
         'address' =>$this->address,
-        'password' =>$this->password,
+        // 'password' =>$this->password,
         'url_image' =>$this->url_image,
         'status' =>$this->status,
         ];
