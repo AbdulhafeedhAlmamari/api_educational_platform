@@ -8,4 +8,3 @@ Route::post('admin/store', [AdminController::class , 'store']);
 Route::post('admin/update/{id}', [AdminController::class , 'update']);
 Route::post('admin/destroy/{id}', [AdminController::class , 'destroy']);
 
-?>

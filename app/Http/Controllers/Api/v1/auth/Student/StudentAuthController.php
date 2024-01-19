@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1\Auth\Student;
+namespace App\Http\Controllers\Api\v1\auth\Student;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ use App\Http\Requests\Students\CreateStudentRequest;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use App\Models\User;
+// use App\Models\User;
 use Dotenv\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;

@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 // Route::post('register', [PassportAuthController::class, 'register']);
 // Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
-Route::group(['prefix' => 'user', 'middleware' => ['auth:user', 'scopes:user']], function () {
+// Route::group(['prefix' => 'user', 'middleware' => ['auth:user', 'scopes:user']], function () {
 
 
 
     // authenticated staff routes here
     // Route::get('courses', [CourseController::class, 'index']);
-});
+// });
 
 // // Route::post('login', [PassportAuthController::class, 'login']);
 
@@ -110,4 +110,4 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user', 'scopes:user']],
 // Route::get('commentsSite/{id}', [CommentsSiteController::class, 'show']);
 // Route::post('commentsSite/store', [CommentsSiteController::class, 'store']);
 // Route::post('commentsSite/update/{id}', [CommentsSiteController::class, 'update']);
-// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']); -->
+// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']); 

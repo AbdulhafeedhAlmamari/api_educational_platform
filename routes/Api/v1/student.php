@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\v1\Auth\Student\ResetPasswordController;
-use App\Http\Controllers\Api\v1\Auth\Student\StudentAuthController;
-use App\Http\Controllers\Api\v1\StudentController;
-use App\Http\Controllers\Api\v1\Auth\VerificationController;
+// use App\Http\Controllers\Api\v1\StudentController;
+// use App\Http\Controllers\Api\v1\auth\VerificationController;
+
+use App\Http\Controllers\Api\v1\auth\Student\StudentAuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('student/register', [StudentAuthController::class, 'register']); //->name('student.register');
+Route::post('student/register', [StudentAuthController::class, 'register']);
 
 Route::post('student/login', [StudentAuthController::class, 'login']);
 

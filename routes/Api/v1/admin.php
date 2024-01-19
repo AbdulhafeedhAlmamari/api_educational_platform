@@ -18,15 +18,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::post('student/register', [StudentAuthController::class, 'register']);
-Route::post('student/login', [StudentAuthController::class, 'login']); //->name('userLogin');
+// Route::post('student/register', [StudentAuthController::class, 'register']);
+// Route::post('student/login', [StudentAuthController::class, 'login']); //->name('userLogin');
 
 // Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
-Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
+// Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
+// Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
     // authenticated staff routes here
     // Route::get('courses', [CourseController::class, 'index']);
-});
+// });
 
 // Route::post('login', [PassportAuthController::class, 'login']);
 

@@ -8,5 +8,4 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user
 });
 
 Route::resource('courses',CourseController::class);
-?>
 

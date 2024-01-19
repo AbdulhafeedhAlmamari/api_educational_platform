@@ -32,7 +32,7 @@ class CreateStudentRequest extends FormRequest
         return [
             'name'         => 'required|string| max:255',
             'email'        => 'required|string|email|max:255|unique:students',
-            'gender'       => 'required| in:male,female',
+            'gender'       => 'required',
             'phone_number' => 'nullable|numeric',
             'address'      => 'nullable| max:255',
             'password'     => 'min:6|required_with:confirm_password|same:confirm_password',
