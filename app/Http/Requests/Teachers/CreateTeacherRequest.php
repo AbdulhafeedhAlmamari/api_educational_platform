@@ -30,15 +30,15 @@ class CreateTeacherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => 'required|string',
+            'name'         => 'required|string| max:255',
             'email'        => 'required|string|email|max:255|unique:teachers',
-            'gender'       => 'required',
+            'gender'       => 'required| in:male,female',
             'phone_number' => 'nullable|numeric',
-            'address'      => 'nullable',
+            'address'      => 'nullable| max:255',
             'password'     => 'min:6|required_with:confirm_password|same:confirm_password',
             'confirm_password'   => 'min:6',
-            'url_image'    => 'nullable',
-            'status'       => 'boolean',
+            'url_image'    => 'nullable| max:255',
+            'status'       => 'boolean| in:1,0',
         ];
     }
     protected function failedValidation(Validator $validator)
@@ -54,4 +54,3 @@ class CreateTeacherRequest extends FormRequest
         parent::failedValidation($validator);
     }
 }
-

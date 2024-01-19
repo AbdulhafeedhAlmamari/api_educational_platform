@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // 'user' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'users',
+        // ],
 
         // for student
         'student' => [

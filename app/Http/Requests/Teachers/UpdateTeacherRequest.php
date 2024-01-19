@@ -30,13 +30,13 @@ class UpdateTeacherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => 'string',
-            'email'        => 'email',
+            'name'         => 'string| max:255',
+            'email'        => 'email| max:255|unique:teachers,email,' . $this->teacher->id,
             'gender'       => 'max:4',
-            'phone_number' => 'nullable|numeric',
-            'address'      => 'nullable',
-            'url_image'    => 'nullable',
-            'status'       => 'boolean',
+            'phone_number' => 'nullable|numeric| ',
+            'address'      => 'nullable| max:255',
+            'url_image'    => 'nullable| max:255',
+            'status'       => 'boolean| in:1,0',
         ];
     }
     protected function failedValidation(Validator $validator)
@@ -52,4 +52,3 @@ class UpdateTeacherRequest extends FormRequest
         parent::failedValidation($validator);
     }
 }
-

@@ -1,19 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\CourseController;
-use App\Http\Controllers\Api\PassportAuthController;
-use App\Http\Controllers\Api\TeachersController;
-use App\Http\Controllers\Api\CategoryMainController;
-use App\Http\Controllers\Api\CategorySubController;
-use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\Api\FavoriteController;
-use App\Http\Controllers\Api\RecorderController;
-use App\Http\Controllers\Api\CommentsCourseController;
-use App\Http\Controllers\Api\CommentsSiteController;
-use App\Http\Controllers\Api\v1\auth\StudentAuthController;
+use App\Http\Controllers\Api\v1\Auth\Student\ResetPasswordController;
+use App\Http\Controllers\Api\v1\Auth\Student\StudentAuthController;
 use App\Http\Controllers\Api\v1\StudentController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Api\v1\Auth\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('student/register', [StudentAuthController::class, 'register']); //->name('student.register');
@@ -29,10 +19,17 @@ Route::get('s/veryfidd', function () {
     ]);
 })->middleware('verified');
 
-Route::group(['prefix' => 'student', 'middleware' => ['auth:student_api', 'scopes:student']], function () {
-    Route::get('data', [StudentController::class, 'index']);
-    Route::get('logout', [StudentAuthController::class, 'logout']);
+
+Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function () {
+    Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::get('student/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+    Route::resource('student', StudentController::class);
+    Route::get('student/logout', [StudentAuthController::class, 'logout']);
+    Route::post('student/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');;
+    Route::post('student/reset-password/{token}', [ResetPasswordController::class, 'reset']);
 });
+
+
 
 // Auth::routes([
 //     'verify' => true,
@@ -52,7 +49,7 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth:student_api', 'scope
 
 // Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
 // Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
-//     // authenticated staff routes here 
+//     // authenticated staff routes here
     // Route::get('courses', [CourseController::class, 'index']);
 // });
 

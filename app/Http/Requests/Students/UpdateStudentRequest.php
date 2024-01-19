@@ -31,13 +31,13 @@ class UpdateStudentRequest extends FormRequest
     {
 
         return [
-            'name'         => 'string|max:255',
-            'email'        => 'string|email|max:255',
-            'gender'       => 'max:2',
-            'phone_number' => 'nullable|numeric',
-            'address'      => 'nullable',
-           'url_image'    => 'nullable',
-            'status'       => 'boolean',
+            'name'         => 'string| max:255',
+            'email'        => 'email| max:255|unique:students,email,' . $this->student->id,
+            'gender'       => 'max:4',
+            'phone_number' => 'nullable|numeric| ',
+            'address'      => 'nullable| max:255',
+            'url_image'    => 'nullable| max:255',
+            'status'       => 'boolean| in:1,0',
         ];
     }
     protected function failedValidation(Validator $validator)

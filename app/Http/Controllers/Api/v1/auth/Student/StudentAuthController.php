@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1\auth;
+namespace App\Http\Controllers\Api\v1\Auth\Student;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Controllers\Controller;
@@ -12,6 +12,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Dotenv\Validator;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,8 +37,11 @@ class StudentAuthController extends Controller
                 'password' => $credentials['password'],
                 'url_image' => $credentials['url_image'],
             ]));
-            // $student->SendEmailVerificationNotification();
+
             $token = $student->createToken('StudentToken', ['student'])->accessToken;
+            event(new Registered($student));
+            // $student->SendEmailVerificationNotification();
+
             return $this->apiResponse($token, 'تم إنشاء حساب بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -185,7 +189,7 @@ class StudentAuthController extends Controller
         $token = $request->user()->token();
         $token->revoke();
         $response = ['message' => 'تم تسجيل الخروج بنجاح'];
-        // return response($response, 200); 
+        // return response($response, 200);
         return $this->apiResponse(null, $response, Response::HTTP_OK);
     }
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-class Teacher extends Authenticatable
+class Teacher extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -24,7 +24,7 @@ class Teacher extends Authenticatable
         'url_image',
         'status',
     ];
-    
+
     protected $hidden = [
         'password',
         'remember_token',

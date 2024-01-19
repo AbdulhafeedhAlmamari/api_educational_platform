@@ -22,14 +22,14 @@ class AdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => 'required|string',
-            'email'         => 'required|email',
-            'gender'        => 'required',
-            'phone_number'  => 'nullable|numeric',
-            'address'       => 'nullable',
-            'password'      => 'required',
-            'url_image'     => 'nullable',
-            'status'        => 'boolean'
+            'name'          => 'required|string| max:255',
+            'email'         => 'required|email|unique:admins,email|max:255',
+            'gender'        => 'required| in:Male,Female',
+            'phone_number'  => 'nullable|numeric|', //max:15
+            'address'       => 'nullable| max:255',
+            'password'      => 'required| min:8| confirmed| max:255',
+            'url_image'     => 'nullable| max:255',
+            'status'        => 'boolean| in:0,1',
         ];
     }
 }
