@@ -6,6 +6,7 @@
 use App\Http\Controllers\Api\v1\auth\Student\ResetPasswordController;
 use App\Http\Controllers\Api\v1\auth\Student\StudentAuthController;
 use App\Http\Controllers\Api\v1\auth\VerificationController;
+use App\Http\Controllers\Api\v1\StudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('student/register', [StudentAuthController::class, 'register']);
@@ -15,22 +16,28 @@ Route::post('student/login', [StudentAuthController::class, 'login']);
 Route::get('auth/google/redirect', [StudentAuthController::class, 'redirect']);
 Route::get('auth/google/callback', [StudentAuthController::class, 'callback']);
 
-Route::get('s/veryfidd', function () {
-    return response()->json([
-        'message' => 'welcome',
-    ]);
-})->middleware('verified');
-
-
 Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function () {
     Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::get('student/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     // Route::resource('student', StudentController::class);
     Route::get('student/logout', [StudentAuthController::class, 'logout']);
-    Route::post('student/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');;
+    Route::post('student/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']);//->name('password.email');
     Route::post('student/reset-password/{token}', [ResetPasswordController::class, 'reset']);
+
+
+    Route::get('students', [StudentController::class, 'index']);
+    Route::get('students/{id}', [StudentController::class, 'show']);
+    Route::post('students/store', [StudentController::class, 'store']);
+    Route::post('students/update/{id}', [StudentController::class, 'update']);
+    Route::post('students/destroy/{id}', [StudentController::class, 'destroy']);
 });
 
+
+// Route::get('s/veryfidd', function () {
+//     return response()->json([
+//         'message' => 'welcome',
+//     ]);
+// })->middleware('verified');
 
 
 // Auth::routes([

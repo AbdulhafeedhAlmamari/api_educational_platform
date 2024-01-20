@@ -9,7 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class Admin extends Authenticatable implements MustVerifyEmail{
+class Admin extends Authenticatable implements MustVerifyEmail
+{
     use HasFactory, Notifiable, HasApiTokens;
     protected $fillable = [
         'name',
