@@ -1,36 +1,27 @@
-<!-- <?php
+<?php
 
-use App\Http\Controllers\Api\CourseController;
-use App\Http\Controllers\Api\PassportAuthController;
-use App\Http\Controllers\LangController;
-use App\Http\Controllers\Api\StudentController;
-use App\Http\Controllers\Api\TeachersController;
-use App\Http\Controllers\Api\CategoryMainController;
-use App\Http\Controllers\Api\CategorySubController;
 use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\Api\LessoneController;
-use App\Http\Controllers\Api\FavoriteController;
-use App\Http\Controllers\Api\RecorderController;
-use App\Http\Controllers\Api\CommentsCourseController;
-use App\Http\Controllers\Api\CommentsSiteController;
-use App\Http\Controllers\Api\v1\auth\StudentAuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\v1\auth\Admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('admin/register', [AdminAuthController::class, 'register']);
 
-// Route::post('student/register', [StudentAuthController::class, 'register']);
-// Route::post('student/login', [StudentAuthController::class, 'login']); //->name('userLogin');
+Route::post('admin/login', [AdminAuthController::class, 'login']);
 
-// Route::post('register', [PassportAuthController::class, 'register']);
-// Route::post('login', [PassportAuthController::class, 'login']); //->name('userLogin');
-// Route::group(['prefix' => 'user', 'middleware' => ['auth:user_api', 'scopes:user_api']], function () {
-    // authenticated staff routes here
-    // Route::get('courses', [CourseController::class, 'index']);
-// });
+Route::get('auth/google/redirect', [AdminAuthController::class, 'redirect']);
+Route::get('auth/google/callback', [AdminAuthController::class, 'callback']);
+// 'prefix' => 'admin',
+Route::group(['middleware' => ['auth:admin_api', 'scopes:admin']], function () {
+    Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::get('student/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+    // Route::resource('teacher', StudentController::class);
+    Route::get('teacher/logout', [StudentAuthController::class, 'logout']);
+    Route::post('admin/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']);//->name('password.email');;
+    Route::post('admin/reset-password/{token}', [ResetPasswordController::class, 'reset']);
 
-// Route::post('login', [PassportAuthController::class, 'login']);
-
-
-
-// Route::get('courses', [CourseController::class, 'index'])->middleware('auth:api');
-
+    Route::get('admins', [AdminController::class, 'index']);
+    Route::get('admin/{id}', [AdminController::class, 'show']);
+    Route::post('admin/store', [AdminController::class, 'store']);
+    Route::post('admin/update/{id}', [AdminController::class, 'update']);
+    Route::post('admin/destroy/{id}', [AdminController::class, 'destroy']);
+});

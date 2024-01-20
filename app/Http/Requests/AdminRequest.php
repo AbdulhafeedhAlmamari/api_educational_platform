@@ -24,10 +24,10 @@ class AdminRequest extends FormRequest
         return [
             'name'          => 'required|string| max:255',
             'email'         => 'required|email|unique:admins,email|max:255',
-            'gender'        => 'required| in:Male,Female',
+            'gender'        => 'required',
             'phone_number'  => 'nullable|numeric|', //max:15
             'address'       => 'nullable| max:255',
-            'password'      => 'required| min:8| confirmed| max:255',
+            'password'      => 'min:6|required_with:confirm_password|same:confirm_password',
             'url_image'     => 'nullable| max:255',
             'status'        => 'boolean| in:0,1',
         ];

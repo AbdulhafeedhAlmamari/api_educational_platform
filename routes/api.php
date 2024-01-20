@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-// // Route::middleware(['auth:api'])->group(function (){
+// Route::middleware(['auth:api'])->group(function (){
 
-// // });
+// });
 
-// // Route::resource('courses', CourseController::class);
+// Route::resource('courses', CourseController::class);
 
-// // Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
+// Route::get('lang/{lang}', [LangControllerroller::class, 'change']);
 
 // Route::post('student/register', [StudentAuthController::class, 'register']);
 // Route::post('student/login', [StudentAuthController::class, 'login']); //->name('userLogin');
