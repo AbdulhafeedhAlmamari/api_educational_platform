@@ -39,7 +39,7 @@ class StudentAuthController extends Controller
             ]));
 
             $token = $student->createToken('StudentToken', ['student'])->accessToken;
-            event(new Registered($student));
+            // event(new Registered($student));
             // $student->SendEmailVerificationNotification();
 
             return $this->apiResponse($token, 'تم إنشاء حساب بنجاح', Response::HTTP_CREATED);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1\Auth\Student;
+namespace App\Http\Controllers\Api\v1\auth\Student;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use Illuminate\Http\Request;

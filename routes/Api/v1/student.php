@@ -3,7 +3,9 @@
 // use App\Http\Controllers\Api\v1\StudentController;
 // use App\Http\Controllers\Api\v1\auth\VerificationController;
 
+use App\Http\Controllers\Api\v1\auth\Student\ResetPasswordController;
 use App\Http\Controllers\Api\v1\auth\Student\StudentAuthController;
+use App\Http\Controllers\Api\v1\auth\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('student/register', [StudentAuthController::class, 'register']);
@@ -23,7 +25,7 @@ Route::get('s/veryfidd', function () {
 Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function () {
     Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::get('student/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-    Route::resource('student', StudentController::class);
+    // Route::resource('student', StudentController::class);
     Route::get('student/logout', [StudentAuthController::class, 'logout']);
     Route::post('student/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');;
     Route::post('student/reset-password/{token}', [ResetPasswordController::class, 'reset']);

@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\CourseController;
-use App\Http\Controllers\Api\PassportAuthController;
-use App\Http\Controllers\Api\v1\Auth\VerificationController;
-use App\Http\Controllers\Api\v1\TeacherController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Api\CourseController;
+// use App\Http\Controllers\Api\PassportAuthController;
+// use App\Http\Controllers\Api\v1\Auth\VerificationController;
+// use App\Http\Controllers\Api\v1\TeacherController;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Route;
 
 
 // // Route::middleware(['auth:api'])->group(function (){
@@ -110,4 +110,4 @@ use Illuminate\Support\Facades\Route;
 // Route::get('commentsSite/{id}', [CommentsSiteController::class, 'show']);
 // Route::post('commentsSite/store', [CommentsSiteController::class, 'store']);
 // Route::post('commentsSite/update/{id}', [CommentsSiteController::class, 'update']);
-// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']); 
+// Route::post('commentsSite/destroy/{id}', [CommentsSiteController::class, 'destroy']);
