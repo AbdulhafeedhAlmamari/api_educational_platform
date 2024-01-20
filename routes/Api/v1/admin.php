@@ -14,11 +14,11 @@ Route::get('auth/google/redirect', [AdminAuthController::class, 'redirect']);
 Route::get('auth/google/callback', [AdminAuthController::class, 'callback']);
 // 'prefix' => 'admin',
 Route::group(['middleware' => ['auth:admin_api', 'scopes:admin']], function () {
-    Route::get('admin/email/verify/{id}/{hash}', [VerificationController::class, 'verify']) ->name('admin.verification.verify');
+    Route::get('admin/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('admin.verification.verify');
     Route::get('admin/email/resend', [VerificationController::class, 'resend'])->name('admin.verification.resend');
     // Route::resource('teacher', StudentController::class);
     Route::get('admin/logout', [AdminAuthController::class, 'logout']);
-    Route::post('admin/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']);//->name('password.email');;
+    Route::post('admin/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']); //->name('password.email');;
     Route::post('admin/reset-password/{token}', [ResetPasswordController::class, 'reset']);
 
     Route::get('admins', [AdminController::class, 'index']);
