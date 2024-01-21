@@ -58,6 +58,7 @@ class ResetPasswordController extends Controller
             'student_password_reset_tokens',
             Student::class
         );
+
         // $token =   $request->input('token');
         // if (!$resetPassword = DB::table('student_password_reset_tokens')->where('token', $token)->first()) {
         //     return   $this->apiResponse(null, 'Invalid token', Response::HTTP_NOT_FOUND);

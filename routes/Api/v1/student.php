@@ -16,14 +16,15 @@ Route::post('student/login', [StudentAuthController::class, 'login']);
 Route::get('auth/google/redirect', [StudentAuthController::class, 'redirect']);
 Route::get('auth/google/callback', [StudentAuthController::class, 'callback']);
 
+
+
 Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function () {
-    Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
-    Route::get('student/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+    Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('student.verification.verify');
+    Route::post('student/email/resend', [VerificationController::class, 'resend']); //->name('verification.resend');
     // Route::resource('student', StudentController::class);
     Route::get('student/logout', [StudentAuthController::class, 'logout']);
-    Route::post('student/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']);//->name('password.email');
+    Route::post('student/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']); //->name('password.email');
     Route::post('student/reset-password/{token}', [ResetPasswordController::class, 'reset']);
-
 
     Route::get('students', [StudentController::class, 'index']);
     Route::get('students/{id}', [StudentController::class, 'show']);

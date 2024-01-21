@@ -41,7 +41,7 @@ class ForgotPasswordMail extends Mailable
     public function content(): Content
     {
         $url =  $this->domainFrontend; //'http://127.0.0.1:8000';   // URL::to('/');
-        $data['url'] = $url . 'api/student/reset-password/' . $this->token;
+        $data['url'] = $url . $this->token;
         return new Content(
             view: 'mail.forgot_password',
             with: ['data' => $data],

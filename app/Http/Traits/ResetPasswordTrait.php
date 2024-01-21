@@ -47,7 +47,8 @@ trait ResetPasswordTrait
                 'token' => $token,
                 'created_at' => Carbon::now()
             ]);
-            Mail::to($user->email)->send(new ForgotPasswordMail($token));
+            $urlToken = 'api/' . substr($tableName = $user->getTable(), 0, -1) . '/reset-password/' . $token;
+            Mail::to($user->email)->send(new ForgotPasswordMail($urlToken));
             return  $this->apiResponse(null, 'We have e-mailed your password reset link!', Response::HTTP_OK);
         } catch (\Exception $e) {
             return  $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -68,16 +69,20 @@ trait ResetPasswordTrait
 
     public function resetPassword($request, $token, $tableReset, $model)
     {
+        try {
+            if (!$resetPassword = DB::table($tableReset)->where('token', $token)->first()) {
+                return  $this->apiResponse(null, 'Invalid token', Response::HTTP_NOT_FOUND);
+            }
+            if (!$user = $model::where('email', $resetPassword->email)->first()) {
+                return  $this->apiResponse(null, 'user not found', Response::HTTP_NOT_FOUND);
+            }
 
-        if (!$resetPassword = DB::table($tableReset)->where('token', $token)->first()) {
-            return  $this->apiResponse(null, 'Invalid token', Response::HTTP_NOT_FOUND);
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+            DB::table($tableReset)->where('email', $user->email)->delete();
+            return $this->apiResponse(null, 'Password reset successfully', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return  $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-        if (!$user = $model::where('email', $resetPassword->email)->first()) {
-            return  $this->apiResponse(null, 'user not found', Response::HTTP_NOT_FOUND);
-        }
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
-        DB::table($tableReset)->where('email', $user->email)->delete();
-        return $this->apiResponse(null, 'Password reset successfully', Response::HTTP_OK);
     }
 }

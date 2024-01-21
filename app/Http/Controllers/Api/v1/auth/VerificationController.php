@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class VerificationController extends Controller
 {
 
+    
     public function __construct()
     {
         $this->middleware('signed')->only('verify');
@@ -60,6 +61,6 @@ class VerificationController extends Controller
             return response(['message' => 'Email Sent']);
         }
 
-        return back()->with('resent', true);
+        return back()->with('message', 'Verification link sent!');
     }
 }
