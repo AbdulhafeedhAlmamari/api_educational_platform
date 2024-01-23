@@ -4,6 +4,10 @@ use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\v1\auth\Admin\AdminAuthController;
 use App\Http\Controllers\Api\v1\auth\Admin\ResetPasswordController;
 use App\Http\Controllers\Api\v1\auth\VerificationController;
+use App\Http\Controllers\Api\v1\CategoryController;
+use App\Http\Controllers\Api\v1\CourseController;
+use App\Http\Controllers\Api\v1\LessoneController;
+use App\Http\Controllers\Api\v1\SectionController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('admin/register', [AdminAuthController::class, 'register']);
@@ -26,4 +30,27 @@ Route::group(['middleware' => ['auth:admin_api', 'scopes:admin']], function () {
     Route::post('admin/store', [AdminController::class, 'store']);
     Route::post('admin/update/{id}', [AdminController::class, 'update']);
     Route::post('admin/destroy/{id}', [AdminController::class, 'destroy']);
+
+    Route::controller(CourseController::class)->group(function () {
+        Route::post('courses/store', 'store');
+        Route::post('courses/update/{id}', 'update');
+        Route::post('courses/destroy/{id}', 'destroy');
+    });
+
+    Route::controller(SectionController::class)->group(function () {
+        Route::post('sections/store', 'store');
+        Route::post('sections/update/{id}', 'update');
+        Route::post('sections/destroy/{id}', 'destroy');
+    });
+
+    Route::controller(CategoryController::class)->group(function () {
+        Route::post('categories/store', 'store');
+        Route::post('categories/update/{id}', 'update');
+        Route::post('categories/destroy/{id}', 'destroy');
+    });
+    Route::controller(LessoneController::class)->group(function () {
+        Route::post('lessones/store', 'store');
+        Route::post('lessones/update/{id}', 'update');
+        Route::post('lessones/destroy/{id}', 'destroy');
+    });
 });

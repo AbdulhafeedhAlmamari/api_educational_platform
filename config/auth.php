@@ -91,10 +91,10 @@ return [
         //     'driver' => 'passport',
         //     'provider' => 'users',
         // ],
-        // 'user_api' => [
-        //     'driver' => 'passport',
-        //     'provider' => 'users',
-        // ],
+        'user_api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
         // 'student_api' => [
         //     'driver' => 'passport',
         //     'provider' => 'students',

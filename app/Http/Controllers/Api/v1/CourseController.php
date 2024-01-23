@@ -61,34 +61,7 @@ class CourseController extends Controller
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-    // public function store(Request $request)
-    // {
-    //     // $validatedData = Validator($request->all(), [
-    //     //     'name' => 'required|string|max:5',
-    //     //     'teacher_id' => 'required|exists:teachers,id',
-    //     //     'catigory_id' => 'required|exists:catigories,id',
-    //     //     'description' => 'required|string',
-    //     //     'start_date' => 'nullable|date',
-    //     //     'end_date' => 'nullable|date',
-    //     //     'price' => 'required|numeric',
-    //     //     'discount' => 'required|numeric',
-    //     //     'url_image' => 'nullable|string',
-    //     //     'status' => 'boolean',
-    //     // ]);
-    //     // if ($validatedData->fails()) {
-    //     //     return $this->apiResponse(null, $validatedData->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
-    //     // }
-    //     try {
-    //         $validatedData = $request->validated();
-    //         $course = Course::create($validatedData);
-    //         return $this->apiResponse($course, 'Course created successfully', Response::HTTP_CREATED);
-    //     } catch (ValidationException $e) {
-    //         return $this->apiResponse(null, $e->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
-    //     } catch (\Exception $e) {
-    //         return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
+ 
     public function show($id)
     {
         try {

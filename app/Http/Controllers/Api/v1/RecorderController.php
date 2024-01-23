@@ -23,7 +23,8 @@ class RecorderController extends Controller
     public function index()
     {
         try {
-            $Recorder = RecorderResource::collection(Recorder::all());
+            $user =  auth('api')->user();
+            $Recorder = RecorderResource::collection(Recorder::where('student_id', $user->id)->get());
 
             if ($Recorder->isEmpty()) {
                 return $this->apiResponse(null, 'لا يوجد تسجيلات لعرضها', Response::HTTP_NOT_FOUND);
@@ -95,7 +96,7 @@ class RecorderController extends Controller
             $Recorder->update($request->validated());
             return $this->apiResponse($Recorder, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا التسجل غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'التسجيل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -111,7 +112,7 @@ class RecorderController extends Controller
             $Recorder->delete();
             return $this->apiResponse($Recorder, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هاذا السجل غير موجود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, ' التسجل غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

@@ -6,6 +6,10 @@
 use App\Http\Controllers\Api\v1\auth\Student\ResetPasswordController;
 use App\Http\Controllers\Api\v1\auth\Student\StudentAuthController;
 use App\Http\Controllers\Api\v1\auth\VerificationController;
+use App\Http\Controllers\Api\v1\CourseController;
+use App\Http\Controllers\Api\v1\FavoriteController;
+use App\Http\Controllers\Api\v1\RecorderController;
+use App\Http\Controllers\Api\v1\SectionController;
 use App\Http\Controllers\Api\v1\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +35,13 @@ Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function 
     Route::post('students/store', [StudentController::class, 'store']);
     Route::post('students/update/{id}', [StudentController::class, 'update']);
     Route::post('students/destroy/{id}', [StudentController::class, 'destroy']);
+
+    Route::controller(CourseController::class)->group(function () {
+        Route::get('courses');
+        Route::get('courses/{id}', 'show');
+    });
+    Route::resource('records',RecorderController::class);
+    Route::resource('favorites',FavoriteController::class);
 });
 
 

@@ -23,7 +23,8 @@ class FavoriteController extends Controller
     public function index()
     {
         try {
-            $Favorite = FavoriteResource::collection(Favorite::all());
+            $user =  auth('api')->user();
+            $Favorite = FavoriteResource::collection(Favorite::where('student_id', $user->id)->get());
 
             if ($Favorite->isEmpty()) {
                 return $this->apiResponse(null, 'لا يوجد ايي اكراس مفضلة لعرضها', Response::HTTP_NOT_FOUND);

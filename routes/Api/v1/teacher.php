@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\v1\auth\Teacher\ResetPasswordController;
 use App\Http\Controllers\Api\v1\auth\Teacher\TeacherAuthController;
 use App\Http\Controllers\Api\v1\auth\VerificationController;
+use App\Http\Controllers\Api\v1\CourseController;
 use App\Http\Controllers\Api\v1\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,9 @@ Route::group(['middleware' => ['auth:teacher_api', 'scopes:teacher']], function 
     Route::post('teacher/store', [TeacherController::class, 'store']);
     Route::post('teacher/update/{id}', [TeacherController::class, 'update']);
     Route::post('teacher/destroy/{id}', [TeacherController::class, 'destroy']);
+
+    Route::controller(CourseController::class)->group(function () {
+        Route::get('courses');
+        Route::get('courses/{id}', 'show');
+    });
 });
