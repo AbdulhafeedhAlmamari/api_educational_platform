@@ -3,8 +3,11 @@
 namespace App\Exceptions;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
+use Dotenv\Exception\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
@@ -38,6 +41,15 @@ class Handler extends ExceptionHandler
         if ($exception instanceof RouteNotFoundException || $exception instanceof NotFoundHttpException) {
             return $this->apiResponse(null, 'Route not found', Response::HTTP_NOT_FOUND); //response()->view('errors.route-not-found', [], 404);
         }
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return $this->apiResponse(null, 'Method not allowed', Response::HTTP_METHOD_NOT_ALLOWED);
+        }
+
+        if ($exception instanceof ModelNotFoundException) {
+            return $this->apiResponse(null, 'Model not found', Response::HTTP_NOT_FOUND);
+        }
+
+
 
         return parent::render($request, $exception);
     }
