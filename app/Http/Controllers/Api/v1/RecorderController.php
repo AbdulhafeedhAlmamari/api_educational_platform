@@ -23,8 +23,8 @@ class RecorderController extends Controller
     public function index()
     {
         try {
-            $user =  auth('api')->user();
-            $Recorder = RecorderResource::collection(Recorder::where('student_id', $user->id)->get());
+            $student =  auth('student_api')->user();
+            $Recorder = RecorderResource::collection(Recorder::where('student_id', $student->id)->get());
 
             if ($Recorder->isEmpty()) {
                 return $this->apiResponse(null, 'لا يوجد تسجيلات لعرضها', Response::HTTP_NOT_FOUND);

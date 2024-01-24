@@ -35,11 +35,7 @@ Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function 
     Route::post('students/store', [StudentController::class, 'store']);
     Route::post('students/update/{id}', [StudentController::class, 'update']);
     Route::post('students/destroy/{id}', [StudentController::class, 'destroy']);
-
-    Route::controller(CourseController::class)->group(function () {
-        Route::get('courses');
-        Route::get('courses/{id}', 'show');
-    });
+    
     Route::resource('records',RecorderController::class);
     Route::resource('favorites',FavoriteController::class);
 });

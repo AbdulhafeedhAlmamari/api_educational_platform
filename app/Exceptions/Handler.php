@@ -49,8 +49,6 @@ class Handler extends ExceptionHandler
             return $this->apiResponse(null, 'Model not found', Response::HTTP_NOT_FOUND);
         }
 
-
-
         return parent::render($request, $exception);
     }
 }

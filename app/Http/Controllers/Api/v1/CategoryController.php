@@ -83,9 +83,9 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, $id)
     {
         try {
-            $Category = new CategoryResource(Category::findOrFail($id));
-            $Category->update($request->validated());
-            return $this->apiResponse($Category, 'تم التعديل بنجاح', Response::HTTP_CREATED);
+            $category = new CategoryResource(Category::findOrFail($id));
+            $category->update($request->validated());
+            return $this->apiResponse($category, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
             return $this->apiResponse(null, 'هذة الفئة غير موجودة', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
     // authenticated staff routes here
 // // Route::post('login', [PassportAuthController::class, 'login']);
 Route::controller(CourseController::class)->group(function () {
-    Route::get('courses');
+    Route::get('courses', 'index');
     Route::get('courses/{id}', 'show');
 });
 Route::controller(SectionController::class)->group(function () {
@@ -23,11 +23,11 @@ Route::controller(SectionController::class)->group(function () {
     Route::get('section/{id}', 'show');
 });
 Route::controller(CategoryController::class)->group(function () {
-    Route::get('categories');
+    Route::get('categories', 'index');
     Route::get('category/{id}', 'show');
 });
 Route::controller(LessoneController::class)->group(function () {
-    Route::get('lessones');
+    Route::get('lessones', 'index');
     Route::get('lessone/{id}', 'show');
 });
 

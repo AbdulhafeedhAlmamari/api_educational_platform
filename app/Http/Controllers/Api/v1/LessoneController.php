@@ -8,6 +8,7 @@ use App\Http\Resources\LessoneResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Lessones\CreateLessoneRequest;
 use App\Http\Requests\Lessones\UpdateLessoneRequest;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,6 +21,7 @@ class LessoneController extends Controller
     public function index()
     {
         try {
+            
             $Lessone = LessoneResource::collection(Lessone::all());
 
             if ($Lessone->isEmpty()) {

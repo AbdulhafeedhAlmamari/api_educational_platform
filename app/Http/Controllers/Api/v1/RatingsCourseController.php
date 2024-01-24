@@ -48,7 +48,8 @@ class RatingsCourseController extends Controller
     public function store(RatingsCourseRequest $request)
     {
         try {
-            $RatingsCourse = new RatingsCourseResource(RatingsCourse::create($request->validated()));
+            // $user = auth()->user();
+            $RatingsCourse = new RatingsCourseResource(RatingsCourse::create(array_merge($request->validated(), ['' => $user->id])));
 
             return $this->apiResponse($RatingsCourse, 'تم الاضافة بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
