@@ -19,7 +19,7 @@ Route::get('auth/google/callback', [TeacherAuthController::class, 'callback']);
 // 'prefix' => 'teacher',
 Route::group(['middleware' => ['auth:teacher_api', 'scopes:teacher']], function () {
     Route::get('teacher/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('teacher.verification.verify');
-    Route::post('teacher/email/resend', [VerificationController::class, 'resend']); //->name('verification.resend');
+    Route::get('teacher/email/resend', [VerificationController::class, 'resend']); //->name('verification.resend');
     // Route::resource('teacher', StudentController::class);
     Route::get('teacher/logout', [TeacherAuthController::class, 'logout']);
     Route::post('teacher/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']); //->name('password.email');

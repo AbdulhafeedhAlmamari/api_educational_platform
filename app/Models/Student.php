@@ -34,16 +34,13 @@ class Student extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPasswordNotification($token));
-    }
+    
 
-    public function recorders()  
+    public function recorders()
     {
         return $this->hasMany(Recorder::class);
     }
-    public function favorites()  
+    public function favorites()
     {
         return $this->hasMany(Recorder::class);
     }

@@ -24,7 +24,7 @@ Route::get('auth/google/callback', [StudentAuthController::class, 'callback']);
 
 Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function () {
     Route::get('student/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('student.verification.verify');
-    Route::post('student/email/resend', [VerificationController::class, 'resend']); //->name('verification.resend');
+    Route::get('student/email/resend', [VerificationController::class, 'resend']); //->name('verification.resend');
     // Route::resource('student', StudentController::class);
     Route::get('student/logout', [StudentAuthController::class, 'logout']);
     Route::post('student/forgot-password', [ResetPasswordController::class, 'sendResetLinkEmail']); //->name('password.email');
@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth:student_api', 'scopes:student']], function 
     Route::post('students/store', [StudentController::class, 'store']);
     Route::post('students/update/{id}', [StudentController::class, 'update']);
     Route::post('students/destroy/{id}', [StudentController::class, 'destroy']);
-    
+
     Route::resource('records',RecorderController::class);
     Route::resource('favorites',FavoriteController::class);
 });
