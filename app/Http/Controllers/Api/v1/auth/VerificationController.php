@@ -33,14 +33,12 @@ class VerificationController extends Controller
     public function verify(EmailVerificationRequest $request) //: RedirectResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
-            // return redirect(env('/') . '/email/verify/already-success');
+
             return $this->apiResponse(null, 'تم التحقق من بريدك الالكتروني بالفعل', Response::HTTP_OK);
         }
-
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
-        // return redirect(env('https') . '/email/verify/success');
         return $this->apiResponse(null, '  تم التحقق من بريدك الالكتروني', Response::HTTP_OK);
     }
 
