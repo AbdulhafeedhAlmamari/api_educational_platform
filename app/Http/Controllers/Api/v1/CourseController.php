@@ -61,7 +61,7 @@ class CourseController extends Controller
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
- 
+
     public function show($id)
     {
         try {
@@ -89,7 +89,7 @@ class CourseController extends Controller
             $course->update($request->validated());
             return $this->apiResponse($course, 'تم التعديل بنجاح', Response::HTTP_CREATED);
         } catch (ModelNotFoundException $e) {
-            return $this->apiResponse(null, 'هذا الكرس غير موود', Response::HTTP_NOT_FOUND);
+            return $this->apiResponse(null, 'هذا الكرس غير موجود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
             return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -100,7 +100,7 @@ class CourseController extends Controller
         try {
             $course = new CourseResource(Course::findOrFail($id));
             $course->delete();
-            return $this->apiResponse($course, 'تم الحذف بنجاح', Response::HTTP_NO_CONTENT);
+            return $this->apiResponse($course, 'تم الحذف بنجاح', Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
             return $this->apiResponse(null, 'هذا الكرس غير موود', Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {

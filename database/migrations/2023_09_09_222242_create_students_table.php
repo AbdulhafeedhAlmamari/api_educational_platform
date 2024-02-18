@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('password');
             $table->string('url_image')->nullable();
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

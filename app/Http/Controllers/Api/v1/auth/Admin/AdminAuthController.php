@@ -52,7 +52,13 @@ class AdminAuthController extends Controller
         $credentials = $request->only('email', 'password');
         // $email = Admin::where('email', $credentials['email'])->first();
         if (Auth::guard('admin')->attempt(['email' => $credentials['email'], 'password' =>  $credentials['password']])) {
-            // $client = Auth::guard('user')->user();
+            $client = Auth::guard('admin')->user();
+            if ($client->email_verified_at == null) {
+                return $this->apiResponse(null, 'يجب تفعيل حسابك', Response::HTTP_UNAUTHORIZED);
+            }
+            if ($client->status == 0) {
+                return $this->apiResponse(null, 'تم ايقاف حسابك الرجاء التواصل مع الادارة ', Response::HTTP_UNAUTHORIZED);
+            }
             config(['auth.guards.api.provider' => 'admin']);
             // $token = $client->createToken('AdminToken', ['admin_api'])->accessToken;
             $token = Auth::guard('admin')->user()->createToken('AdminToken', ['admin'])->accessToken;
@@ -183,18 +189,29 @@ class AdminAuthController extends Controller
         //     return $this->apiResponse($e->getMessage(), 'Authentication failed', Response::HTTP_INTERNAL_SERVER_ERROR);
         // }
     }
-    public function logout(Request $request)
+    public function logout()
     {
-        $token = $request->user()->token();
-        $token->revoke();
-        $response = ['message' => 'تم تسجيل الخروج بنجاح'];
-        // return response($response, 200);
-        return $this->apiResponse(null, $response, Response::HTTP_OK);
+        try {
+            Auth::guard('admin')->logout();
+            return $this->apiResponse(null, 'تم تسجيل الخروج بنجاح', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->apiResponse($e->getMessage(), 'Authentication failed', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+        // $token->revoke();
+
     }
 
     public function userInfo(Request $request)
     {
         $user = auth()->user();
         return $this->apiResponse($user, 'Token', Response::HTTP_OK);
+    }
+
+    public function ckeckStatus()
+    {
+        $status = Admin::where('id', auth('admin')->user()->id)->first()->status;
+        if ($status == 0) {
+            Auth::guard('admin')->logout();
+        }
     }
 }

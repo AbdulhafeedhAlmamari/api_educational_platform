@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sections\CreateSectionRequest;
 use App\Http\Requests\StudentRequest;
 use App\Http\Requests\Students\CreateStudentRequest;
+use App\Http\Requests\Students\LoginStudentRequest;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class StudentAuthController extends Controller
 
         try {
             $credentials = $request->only('name', 'email', 'gender', 'phone_number', 'address', 'password', 'url_image');
+
             $student = new StudentResource(Student::create([
                 'name' => $credentials['name'],
                 'email' => $credentials['email'],
@@ -40,7 +42,7 @@ class StudentAuthController extends Controller
 
             $token = $student->createToken('StudentToken', ['student'])->accessToken;
             // event(new Registered($student));
-            // $student->SendEmailVerificationNotification();
+            $student->SendEmailVerificationNotification();
 
             return $this->apiResponse($token, 'تم إنشاء حساب بنجاح', Response::HTTP_CREATED);
         } catch (\Exception $e) {
@@ -48,22 +50,29 @@ class StudentAuthController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(LoginStudentRequest $request)
     {
-        $credentials = $request->only('email', 'password');
-        // $email = Student::where('email', $credentials['email'])->first();
-        if (Auth::guard('student')->attempt(['email' => $credentials['email'], 'password' =>  $credentials['password']])) {
-            // $client = Auth::guard('user')->user();
-            config(['auth.guards.api.provider' => 'student']);
-            // $token = $client->createToken('StudentToken', ['student_api'])->accessToken;
-            $token = Auth::guard('student')->user()->createToken('StudentToken', ['student'])->accessToken;
+        try {
+            $credentials = $request->only('email', 'password');
+            // $email = Student::where('email', $credentials['email'])->first();
+            if (Auth::guard('student')->attempt(['email' => $credentials['email'], 'password' =>  $credentials['password']])) {
+                $client = Auth::guard('student')->user();
 
-            return response()->json([
-                'message' => 'تم تسجيل الدخول بنجاح',
-                'token' => $token
-            ], 200);
-        } else {
-            return response()->json(['error' => 'خطاء في الايميل او كلمة المرور'], 401);
+                // if ($client->email_verified_at == null) {
+                //     return $this->apiResponse(null, 'يجب تفعيل حسابك', Response::HTTP_UNAUTHORIZED);
+                // }
+                // if ($client->status == 0) {
+                //     return $this->apiResponse(null, 'تم ايقاف حسابك الرجاء التواصل مع الادارة ', Response::HTTP_UNAUTHORIZED);
+                // }
+                config(['auth.guards.api.provider' => 'student']);
+                // $token = $client->createToken('StudentToken', ['student_api'])->accessToken;
+                $token = Auth::guard('student')->user()->createToken('StudentToken', ['student'])->accessToken;
+                return $this->apiResponse($token, 'تم تسجيل الدخول بنجاح', Response::HTTP_OK);
+            } else {
+                return $this->apiResponse(null, 'خطاء في الايميل او كلمة المرور ', Response::HTTP_UNAUTHORIZED);
+            }
+        } catch (\Exception $e) {
+            return $this->apiResponse(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -113,7 +122,7 @@ class StudentAuthController extends Controller
                 ]);
                 // Optionally store access token if needed
             }
-            $token = $existingStudent ? $existingStudent->createToken('StudentToken', ['student'])->accessToken: $newStudent->createToken('StudentToken', ['student'])->accessToken;
+            $token = $existingStudent ? $existingStudent->createToken('StudentToken', ['student'])->accessToken : $newStudent->createToken('StudentToken', ['student'])->accessToken;
 
             // $token = $existingStudent ?: $newStudent->createToken('Personal Access Token')->accessToken;
             // Log in the user
@@ -184,18 +193,30 @@ class StudentAuthController extends Controller
         //     return $this->apiResponse($e->getMessage(), 'Authentication failed', Response::HTTP_INTERNAL_SERVER_ERROR);
         // }
     }
-    public function logout(Request $request)
+    public function logout()
     {
-        $token = $request->user()->token();
-        $token->revoke();
-        $response = ['message' => 'تم تسجيل الخروج بنجاح'];
-        // return response($response, 200);
-        return $this->apiResponse(null, $response, Response::HTTP_OK);
+        try {
+            Auth::guard('student')->logout();
+            return $this->apiResponse(null, 'تم تسجيل الخروج بنجاح', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->apiResponse($e->getMessage(), 'Authentication failed', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+        // $token->revoke();
+
     }
 
     public function userInfo(Request $request)
     {
         $user = auth()->user();
         return $this->apiResponse($user, 'Token', Response::HTTP_OK);
+    }
+
+    public function ckeckStatus()
+    {
+        $status = Student::where('id', auth('student')->user()->id)->first()->status;
+        if ($status == 0) {
+            Auth::guard('student')->logout();
+        }
+
     }
 }

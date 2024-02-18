@@ -53,7 +53,13 @@ class TeacherAuthController extends Controller
         $credentials = $request->only('email', 'password');
         // $email = Teacher::where('email', $credentials['email'])->first();
         if (Auth::guard('teacher')->attempt(['email' => $credentials['email'], 'password' =>  $credentials['password']])) {
-            // $client = Auth::guard('user')->user();
+            $client = Auth::guard('teacher')->user();
+            if ($client->email_verified_at == null) {
+                return $this->apiResponse(null, 'يجب تفعيل حسابك', Response::HTTP_UNAUTHORIZED);
+            }
+            if ($client->status == 0) {
+                return $this->apiResponse(null, 'تم ايقاف حسابك الرجاء التواصل مع الادارة ', Response::HTTP_UNAUTHORIZED);
+            }
             config(['auth.guards.api.provider' => 'teacher']);
             // $token = $client->createToken('TeacherToken', ['teacher_api'])->accessToken;
             $token = Auth::guard('teacher')->user()->createToken('TeacherToken', ['teacher'])->accessToken;
@@ -113,7 +119,7 @@ class TeacherAuthController extends Controller
                 ]);
                 // Optionally store access token if needed
             }
-            $token = $existingTeacher ? $existingTeacher->createToken('TeacherToken', ['teacher'])->accessToken: $newTeacher->createToken('TeacherToken', ['teacher'])->accessToken;
+            $token = $existingTeacher ? $existingTeacher->createToken('TeacherToken', ['teacher'])->accessToken : $newTeacher->createToken('TeacherToken', ['teacher'])->accessToken;
 
             // $token = $existingTeacher ?: $newTeacher->createToken('Personal Access Token')->accessToken;
             // Log in the user
@@ -184,18 +190,29 @@ class TeacherAuthController extends Controller
         //     return $this->apiResponse($e->getMessage(), 'Authentication failed', Response::HTTP_INTERNAL_SERVER_ERROR);
         // }
     }
-    public function logout(Request $request)
+    public function logout()
     {
-        $token = $request->user()->token();
-        $token->revoke();
-        $response = ['message' => 'تم تسجيل الخروج بنجاح'];
-        // return response($response, 200);
-        return $this->apiResponse(null, $response, Response::HTTP_OK);
+        try {
+            Auth::guard('teacher')->logout();
+            return $this->apiResponse(null, 'تم تسجيل الخروج بنجاح', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->apiResponse($e->getMessage(), 'Authentication failed', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+        // $token->revoke();
+
     }
 
     public function userInfo(Request $request)
     {
         $user = auth()->user();
         return $this->apiResponse($user, 'Token', Response::HTTP_OK);
+    }
+
+    public function ckeckStatus()
+    {
+        $status = Teacher::where('id', auth('teacher')->user()->id)->first()->status;
+        if ($status == 0) {
+            Auth::guard('teacher')->logout();
+        }
     }
 }

@@ -39,10 +39,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof RouteNotFoundException || $exception instanceof NotFoundHttpException) {
-            return $this->apiResponse(null, 'Route not found', Response::HTTP_NOT_FOUND); //response()->view('errors.route-not-found', [], 404);
+            return $this->apiResponse(null, 'هذا الرابط غير موجود', Response::HTTP_NOT_FOUND); //response()->view('errors.route-not-found', [], 404);
         }
         if ($exception instanceof MethodNotAllowedHttpException) {
-            return $this->apiResponse(null, 'Method not allowed', Response::HTTP_METHOD_NOT_ALLOWED);
+            return $this->apiResponse(null, '', Response::HTTP_METHOD_NOT_ALLOWED);
         }
 
         if ($exception instanceof ModelNotFoundException) {

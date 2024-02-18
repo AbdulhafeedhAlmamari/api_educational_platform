@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Http\Traits\Auth;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Requests\ResetPasswordRequest;

@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class CreateStudentRequest extends FormRequest
+class LoginStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,22 +29,19 @@ class CreateStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => 'required|string| max:255',
-            'email'        => 'required|string|email|max:255|unique:students',
-            'gender'       => 'required',
-            'phone_number' => 'nullable|numeric|min:9',
-            'address'      => 'nullable| max:255',
-            'password'     => 'min:6|required_with:confirm_password|same:confirm_password| max:14',
-            'confirm_password'   => 'min:6| max:14',
-            'url_image'    => 'nullable| max:255',
+            'email'        => 'required|string|email|max:255',
+            'password'     => 'required|min:6|max:255',
         ];
     }
     protected function failedValidation(Validator $validator)
     {
         if ($this->expectsJson()) {
             $errors = (new ValidationException($validator))->errors();
+
+
             throw new HttpResponseException(
-                // response()->json(['errors' => $errors], JsonResponse::HTTP_BAD_REQUEST)
+                // response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST)
+
                 $this->apiResponse(null, $errors, Response::HTTP_NOT_FOUND)
             );
         }

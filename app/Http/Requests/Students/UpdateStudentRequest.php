@@ -37,7 +37,6 @@ class UpdateStudentRequest extends FormRequest
             'phone_number' => 'nullable|numeric| ',
             'address'      => 'nullable| max:255',
             'url_image'    => 'nullable| max:255',
-            'status'       => 'boolean| in:1,0',
         ];
     }
     protected function failedValidation(Validator $validator)

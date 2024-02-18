@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Api\v1\auth;
 
+use App\Http\Controllers\Api\ApiResponseTrait;
 use App\Http\Controllers\Controller;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VerificationController extends Controller
 {
 
-    
+    use ApiResponseTrait;
     public function __construct()
     {
         $this->middleware('signed')->only('verify');
@@ -30,14 +34,14 @@ class VerificationController extends Controller
     {
         if ($request->user()->hasVerifiedEmail()) {
             // return redirect(env('/') . '/email/verify/already-success');
-            return response()->json(['message' => 'Email already verified']);
+            return $this->apiResponse(null, 'تم التحقق من بريدك الالكتروني بالفعل', Response::HTTP_OK);
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
         // return redirect(env('https') . '/email/verify/success');
-        return  response()->json(['message' => 'Email verified']);
+        return $this->apiResponse(null, '  تم التحقق من بريدك الالكتروني', Response::HTTP_OK);
     }
 
     /**
@@ -50,17 +54,17 @@ class VerificationController extends Controller
      */
     public function resend(Request $request)
     {
-        if ($request->user()->hasVerifiedEmail()) {
-
-            return response(['message' => 'Already verified']);
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $user = Student::where('email', $request->email)->first();
+        if ($user) {
+            if ($user->hasVerifiedEmail()) {
+                return $this->apiResponse(null, 'تم التحقق من بريدك الالكتروني بالفعل', Response::HTTP_OK);
+            }
+            $user->sendEmailVerificationNotification();
+            return $this->apiResponse(null, 'تم ارسال التحقق البريد الالكتروني بنجاح', Response::HTTP_OK);
         }
-
-        $request->user()->sendEmailVerificationNotification();
-
-        if ($request->wantsJson()) {
-            return response(['message' => 'Email Sent']);
-        }
-
-        return back()->with('message', 'Verification link sent!');
+        return $this->apiResponse(null, 'البريد الالكتروني غير موجود', Response::HTTP_NOT_FOUND);
     }
 }
